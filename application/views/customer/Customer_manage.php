@@ -2,7 +2,7 @@
     <h1>Customers</h1>
     <br>
     <div class="row buttonAdd">
-        <button id="AddCoustomer" type="button" class="btn btn-success btn-lg" data-toggle="modal"
+        <button id="AddCoustomer" type="button" class="btn btn-success" data-toggle="modal"
             data-target="#CustomerModal">New Customer <i class="fas fa-plus"></i></button>
 
         <!-- <button onclick="userAction()" class="btn btn-success btn-lg"> Action </button> -->
@@ -22,7 +22,8 @@
             <tr>
                 <th scope="row">1</th>
                 <td>
-                    <i class="fas fa-pen text-primary" data-toggle="modal" data-target="#CustomerModal"></i>
+                    <i id="EditCoustomer" class="fas fa-pen text-primary" data-toggle="modal"
+                        data-target="#CustomerModal" name=""></i>
                     <i class="ml-2 fas fa-trash-alt text-danger"></i>
 
                 </td>
@@ -33,7 +34,8 @@
             <tr>
                 <th scope="row">2</th>
                 <td>
-                    <i class="fas fa-pen text-primary" data-toggle="modal" data-target="#CustomerModal"></i>
+                    <i id="EditCoustomer" class="fas fa-pen text-primary" data-toggle="modal"
+                        data-target="#CustomerModal"></i>
                     <i class="ml-2 fas fa-trash-alt text-danger"></i>
                 </td>
                 <td>Jacob</td>
@@ -43,7 +45,8 @@
             <tr>
                 <th scope="row">3</th>
                 <td>
-                    <i class="fas fa-pen text-primary" data-toggle="modal" data-target="#CustomerModal"></i>
+                    <i id="EditCoustomer" class="fas fa-pen text-primary" data-toggle="modal"
+                        data-target="#CustomerModal"></i>
                     <i class="ml-2 fas fa-trash-alt text-danger"></i>
                 </td>
                 <td>Larry</td>
@@ -53,7 +56,19 @@
         </tbody>
     </table>
 
-
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-end">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
 
     <!-- <?php
         echo uniqid();

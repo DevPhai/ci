@@ -16,25 +16,25 @@
                             role="tab" aria-controls="nav-Info" aria-selected="true">Infomation</a>
                         <a class="nav-item nav-link" id="nav-Education-tab" data-toggle="tab" href="#nav-Education"
                             role="tab" aria-controls="nav-Education" aria-selected="false">Education</a>
-                        <a class="nav-item nav-link" id="nav-Display-tab" data-toggle="tab" href="#nav-Display"
+                        <a class="nav-item nav-link" id="nav-Education-tab" data-toggle="tab" href="#nav-Display"
                             role="tab" aria-controls="nav-Display" aria-selected="false">Profile Display</a>
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-Info" role="tabpanel" aria-labelledby="nav-Info-tab">
-
                     <?php $this->load->view('customer/MP/Infomation');?>
-                      
                     </div>
-                    <div class="tab-pane fade" id="nav-Education" role="tabpanel" aria-labelledby="nav-Education-tab">...
+                    <div class="tab-pane fade" id="nav-Education" role="tabpanel" aria-labelledby="nav-Education-tab">
+                    <?php $this->load->view('customer/MP/Education');?>
                     </div>
-                    <div class="tab-pane fade" id="nav-Display" role="tabpanel" aria-labelledby="nav-Display-tab">...
+                    <div class="tab-pane fade" id="nav-Display" role="tabpanel" aria-labelledby="nav-Display-tab">.
+                    <?php $this->load->view('customer/MP/ProfileDisplay');?>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success">Save</button>
+                <button id='ActionToCustomer' type="button" class=""></button>
             </div>
         </div>
     </div>

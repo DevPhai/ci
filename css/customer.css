@@ -110,3 +110,8 @@ td>svg:hover {
 form{
 	padding: 15px 15px 15px 15px;
 }
+
+.file {
+	visibility: hidden;
+	position: absolute;
+  }
