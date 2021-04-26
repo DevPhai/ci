@@ -12,7 +12,7 @@ class Customer_model extends CI_Model {
 
     public function insert_customer()
     {
-        
+        $this->db->insert('tbl_customerinfo',$formArry); 
     }
 
     public function update_customer()

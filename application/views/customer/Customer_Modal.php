@@ -20,7 +20,7 @@
                             role="tab" aria-controls="nav-Display" aria-selected="false">Profile Display</a>
                     </div>
                 </nav>
-                <form id="customerform">
+                <form id="formCustomer">
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-Info" role="tabpanel" aria-labelledby="nav-Info-tab">
                         <div class="form-row">

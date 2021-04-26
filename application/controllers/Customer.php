@@ -35,11 +35,17 @@ class Customer extends CI_Controller {
     public function bindSaveCustomer()
 	{
 	
-		$data = [
-			'FirstName' => $this->request->getPost('FirstName'), 
-			'LastName' => $this->request->getPost('LastName'),
+		
+        
+         $this->input->post('name');
+        
+      
 
-		];
+
+		// $data = array(
+		// 	'FirstName' => $this->input->post('FirstName'),
+		// 	'LastName' => $this->input->post('LastName')
+		// 	);
 
 		$this->member_model->insert_customer($data);
 	}
@@ -53,5 +59,8 @@ class Customer extends CI_Controller {
 	{
 		$this->member_model->delete_customer();
 	}
+
+
+
     
 }

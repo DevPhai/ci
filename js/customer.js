@@ -32,10 +32,12 @@ $("#EditCoustomer").click(function() {
 
 
   function BindSave(){
+
+    var form = $('#formCustomer');
+
     $.ajax({
-      type: 'POST',
       url: base_url + 'index.php/Customer/bindSaveCustomer',
-      data: d,
+      data: form.serialize(),
       method: 'POST',
       datatype: "json",
       contentType: 'application/json;',
