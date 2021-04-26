@@ -29,6 +29,47 @@ $("#EditCoustomer").click(function() {
   $('#inputDateOfBirth').datepicker();
   $('#inputGraduateDate').datepicker();
 
+
+
+  function BindSave(){
+    $.ajax({
+      type: 'POST',
+      url: base_url + 'index.php/Customer/bindSaveCustomer',
+      data: d,
+      method: 'POST',
+      datatype: "json",
+      contentType: 'application/json;',
+      traditional: true,
+  
+      beforeSend:function () {
+        $('#AddCoustomer').attr('disabled','disabled');
+      },
+      success: function (data) {
+          if (data.IsResult) {
+              console.log(' Succress ');
+          } else {
+            console.log(' Error ');
+          }
+          $('#AddCoustomer').attr('disabled',false);
+          $('#CustomerModal').modal('hide');
+      },
+      error: function (xhr) {
+            console.log(' Not response ');
+            $('#AddCoustomer').attr('disabled',false);
+            $('#CustomerModal').modal('hide');
+      }
+  });
+  }
+  
+
+
+
+
+
+
+
+
+
 // async function getCountry(){
 //   console.log('getCountry');
 //   let response = await fetch('https://api.printful.com/countries');
@@ -94,36 +135,6 @@ $('input[type="file"]').change(function(e) {
 
 
 
-function BindSave(){
-  $.ajax({
-    type: 'POST',
-    url: '/Customer/bindSaveCustomer',
-    data: GetFormValues(),
-    method: 'POST',
-    datatype: "json",
-    contentType: 'application/json;',
-    traditional: true,
-
-    beforeSend:function () {
-      $('#AddCoustomer').attr('disabled','disabled');
-    },
-    success: function (data) {
-        if (data.IsResult) {
-            console.log(' Succress ');
-        } else {
-          console.log(' Error ');
-        }
-        $('#AddCoustomer').attr('disabled',false);
-        $('#CustomerModal').modal('hide');
-    },
-    error: function (xhr) {
-          console.log(' Not response ');
-          $('#AddCoustomer').attr('disabled',false);
-          $('#CustomerModal').modal('hide');
-    }
-});
-}
-
 
 
 
@@ -158,43 +169,43 @@ function BindEdit(){
 
 
 
-function GetFormValues() {
-  var $formInfo = $('#Infomation');
-  var $formEducation= $('#Educational');
-  var $Display = $('#image-form');
-  var elements = new Array();
-  $formInfo.find('input[type=text],input[type=Phone],input[type=Email]').each(function () {
-      if ($(this).attr('disabled') != 'disabled' && $(this).attr('disabled') != true) {
-          var name = $(this).attr('name');
-          if (name != null && name != undefined) {
-              elements.push({
-                  name: $(this).attr('name'),
-                  value: $(this).val()
-              });
-          }
-      }
-  });
-  $formEducation.find('input[type=text]').each(function () {
-    if ($(this).attr('disabled') != 'disabled' && $(this).attr('disabled') != true) {
-        var name = $(this).attr('name');
-        if (name != null && name != undefined) {
-            elements.push({
-                name: $(this).attr('name'),
-                value: $(this).val()
-            });
-        }
-    }
-});
-$Display.find('input[type=text]').each(function () {
-  if ($(this).attr('disabled') != 'disabled' && $(this).attr('disabled') != true) {
-      var name = $(this).attr('name');
-      if (name != null && name != undefined) {
-          elements.push({
-              name: $(this).attr('name'),
-              value: $(this).val()
-          });
-      }
-  }
-});
-  return elements;
-}
+// function GetFormValues() {
+//   var $formInfo = $('#Infomation');
+//   var $formEducation= $('#Educational');
+//   var $Display = $('#image-form');
+//   var elements = new Array();
+//   $formInfo.find('input[type=text],input[type=Phone],input[type=Email]').each(function () {
+//       if ($(this).attr('disabled') != 'disabled' && $(this).attr('disabled') != true) {
+//           var name = $(this).attr('name');
+//           if (name != null && name != undefined) {
+//               elements.push({
+//                   name: $(this).attr('name'),
+//                   value: $(this).val()
+//               });
+//           }
+//       }
+//   });
+//   $formEducation.find('input[type=text]').each(function () {
+//     if ($(this).attr('disabled') != 'disabled' && $(this).attr('disabled') != true) {
+//         var name = $(this).attr('name');
+//         if (name != null && name != undefined) {
+//             elements.push({
+//                 name: $(this).attr('name'),
+//                 value: $(this).val()
+//             });
+//         }
+//     }
+// });
+// $Display.find('input[type=text]').each(function () {
+//   if ($(this).attr('disabled') != 'disabled' && $(this).attr('disabled') != true) {
+//       var name = $(this).attr('name');
+//       if (name != null && name != undefined) {
+//           elements.push({
+//               name: $(this).attr('name'),
+//               value: $(this).val()
+//           });
+//       }
+//   }
+// });
+//   return elements;
+// }

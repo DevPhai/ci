@@ -41,7 +41,7 @@ class Customer extends CI_Controller {
 
 		];
 
-		// $this->member_model->insert_customer($data);
+		$this->member_model->insert_customer($data);
 	}
 
     public function bindEditCustomer()

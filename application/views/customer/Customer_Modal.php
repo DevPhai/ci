@@ -20,15 +20,111 @@
                             role="tab" aria-controls="nav-Display" aria-selected="false">Profile Display</a>
                     </div>
                 </nav>
+                <form id="customerform">
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-Info" role="tabpanel" aria-labelledby="nav-Info-tab">
-                    <?php $this->load->view('customer/MP/Infomation');?>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputFirstName">First Name</label>
+                                <input type="text" class="form-control" id="inputFirstName" name="FirstName">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputLastName">Last Name</label>
+                                <input type="text" class="form-control" id="inputLastName" name="LastName">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="inputNickName">Nick Name</label>
+                                <input type="text" class="form-control" id="inputNickName" name="NickName">
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label for="inputDateOfBirth">Date Of Birth</label>
+                                <input type="text" class="form-control " id="inputDateOfBirth" name="DateOfBirth">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="inputPhone">Phone Number</label>
+                                <input type="Phone" class="form-control" id="inputPhone" name="Phone">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="inputEmail">Email</label>
+                                <input type="Email" class="form-control" id="inputEmail" name="Email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputAddress">Address</label>
+                            <input type="text" class="form-control" id="inputAddress" name="Address">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputAddress2">Address 2</label>
+                            <input type="text" class="form-control" id="inputAddress2" name="Address2">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="inputCity">City</label>
+                                <input type="text" class="form-control" id="inputCity" name="City">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="inputProvince">Province</label>
+                                <input type="text" class="form-control" id="inputProvince" name="Province">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="inputCountry">Country</label>
+                                <input type="text" class="form-control" id="inputCountry" name="Country">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="inputPostalCode">PostalCode</label>
+                                <input type="text" class="form-control" id="inputPostalCode" name="PostalCode">
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="nav-Education" role="tabpanel" aria-labelledby="nav-Education-tab">
-                    <?php $this->load->view('customer/MP/Education');?>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEducationalLevel">Educational Level</label>
+                                <input type="text" class="form-control" id="inputEducationalLevel"
+                                    name="EducationalLevel">
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="inputInstitution">Institution</label>
+                                <input type="text" class="form-control" id="inputInstitution" name="Institution">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputMajor">Major</label>
+                                <input type="text" class="form-control" id="inputMajor" name="Major">
+                            </div>
+
+                            <div class="form-group col-md-6 ">
+                                <label for="inputGraduateDate">Graduate Date</label>
+                                <input type="text" class="form-control " id="inputGraduateDate" name="GraduateDate">
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="nav-Display" role="tabpanel" aria-labelledby="nav-Display-tab">.
-                    <?php $this->load->view('customer/MP/ProfileDisplay');?>
+                        <div class="container">
+                            <div class="form-row justify-content-md-center">
+                                <div class="col">
+                                    <div id="msg"></div>
+                                    <label for="file">Profile Display</label>
+                                    <input type="file" name="img[]" class="file" accept="image/*">
+                                    <div class="input-group my-3">
+                                        <input type="text" class="form-control" disabled placeholder="Upload File"
+                                            id="file">
+                                        <div class="input-group-append">
+                                            <button type="button" class="browse btn btn-primary">Browse</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <img src="<?php echo base_url('img/person.jpg') ?>" id="preview"
+                                        class="img-thumbnail">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
