@@ -1,27 +1,42 @@
-<div id="container">
-    <h1>Customers</h1>
-    <br>
-    <div class="row buttonAdd">
-        <button id="AddCoustomer" type="button" class="btn btn-success" data-toggle="modal"
-            data-target="#CustomerModal">New Customer <i class="fas fa-plus"></i></button>
 
+<div id="container">
+
+    <br>
+    <div class="row headtitle">
+        <div>
+            <h1>Customers</h1>
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary" onclick='GetListCustomer()'>Get Customer </button>
+        </div>
+        <div>
+            <button id="AddCoustomer" type="button" class="btn btn-success" data-toggle="modal"
+                data-target="#CustomerModal">New Customer <i class="fas fa-plus"></i></button>
+        </div>
         <!-- <button onclick="userAction()" class="btn btn-success btn-lg"> Action </button> -->
     </div>
     <br>
-    <table class="table">
+    <table class="table" id="_ListCustomer">
         <thead>
             <tr>
-                <th scope="col">ListNo</th>
+                <th scope="col">id</th>
+                <th scope="col">FirstName</th>
+                <th scope="col">LastName</th>
+                <th scope="col">NickName</th>
+                <th scope="col">Date Of Birth</th>
+                <th scope="col">Phone</th>
                 <th scope="col">Action</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
+        </tbody>
+    </table>
+
+
+      <!-- <tr>
                 <th scope="row">1</th>
                 <td>
+                    
                     <i id="EditCoustomer" class="fas fa-pen text-primary" data-toggle="modal"
                         data-target="#CustomerModal" name=""></i>
                     <i class="ml-2 fas fa-trash-alt text-danger"></i>
@@ -52,11 +67,9 @@
                 <td>Larry</td>
                 <td>the Bird</td>
                 <td>@twitter</td>
-            </tr>
-        </tbody>
-    </table>
+            </tr> -->
 
-    <nav aria-label="Page navigation example">
+    <!-- <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-end">
             <li class="page-item disabled">
                 <a class="page-link" href="#" tabindex="-1">Previous</a>
@@ -68,7 +81,7 @@
                 <a class="page-link" href="#">Next</a>
             </li>
         </ul>
-    </nav>
+    </nav> -->
 
     <!-- <?php
         echo uniqid();

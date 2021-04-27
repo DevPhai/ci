@@ -13,5 +13,5 @@ var base_url = '<?php echo base_url();?>'
 	<title>Welcome to CodeIgniter</title>
 </head>
 <body>
-
+<div id="alert" style="display: none;"></div>
 <img style="width: 100%;height: 100px; border-radius: 5px" src="<?php echo base_url('img/cover.png')?>">

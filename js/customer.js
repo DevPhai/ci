@@ -30,42 +30,140 @@ $("#EditCoustomer").click(function() {
   $('#inputGraduateDate').datepicker();
 
 
-
-  function BindSave(){
-
-    var form = $('#formCustomer');
-
-    $.ajax({
-      url: base_url + 'index.php/Customer/bindSaveCustomer',
-      data: form.serialize(),
-      method: 'POST',
-      datatype: "json",
-      contentType: 'application/json;',
-      traditional: true,
-  
-      beforeSend:function () {
-        $('#AddCoustomer').attr('disabled','disabled');
+function GetListCustomer() {
+  var table = $('#_ListCustomer').DataTable({
+    pageLength: 10,
+    serverSide: true,
+    processing: true,
+    ajax: {
+      url: base_url + 'index.php/customer/bindLoadListCustomer',
+      method: 'GET',
+    },
+    'columns': [
+      {
+        data: 'id',
+        orderable: true
       },
-      success: function (data) {
-          if (data.IsResult) {
-              console.log(' Succress ');
-          } else {
-            console.log(' Error ');
-          }
-          $('#AddCoustomer').attr('disabled',false);
-          $('#CustomerModal').modal('hide');
+      {
+        data: 'FirstName'
       },
-      error: function (xhr) {
-            console.log(' Not response ');
-            $('#AddCoustomer').attr('disabled',false);
-            $('#CustomerModal').modal('hide');
+      {
+        data: 'LastName'
+      },
+      {
+        data: 'NickName'
+      },
+      {
+        data: 'DateOfBirth'
+      },
+      {
+        data:'Action',
+        render: function (data,type,row){
+          var dataid = row['id'];
+          var btnAction = '<i id="EditCoustomer" class="fas fa-pen text-primary" data-toggle="modal"data-target="#CustomerModal" data-id="'+dataid+'"></i>';
+          var btnDelete = '<i id="'+dataid+'" class="ml-2 fas fa-trash-alt text-danger"></i >';
+          var Action = btnAction + btnDelete;
+          return Action;
+        }
       }
+    ]
   });
+
+}
+
+
+function BindSave() {
+
+  var formdata = (getformdataByjQuery());
+  console.log(formdata);
+
+  $.ajax({
+    url: base_url + 'index.php/Customer/bindSaveCustomer',
+    data: formdata,
+    method: 'POST',
+    dataType: "json",
+
+    beforeSend: function () {
+      $('#ActionToCustomer').prop('disabled', true);
+    },
+    success: function (dataResult) {
+
+      if (dataResult.statusCode == 200) {
+        alertdialog(1, 'Save Success ');   
+      }
+      else {
+        alertdialog(2, 'Save Error ');
+      }
+      
+      $('#ActionToCustomer').prop("disabled", false)
+      $('#CustomerModal').modal('hide');
+
+    },
+    error: function (xhr) {
+      $('#ActionToCustomer').attr('disabled', false);
+      $('#CustomerModal').modal('hide');
+      alertdialog(2, 'Error Not response !! ');
+
+    }
+  });
+}
+
+
+
+function alertdialog(alertType, TestAlert) {
+  let ClassName = new Array();
+  let alert = document.getElementById('alert');
+  alert.className = alert.className.replace(/\bmystyle\b/g, "");
+  ClassName.push('alert');
+  switch (alertType) {
+    //type 1 = Success
+    //type 2 = Error
+    case 1:
+      ClassName.push('alert-success');
+      break;
+    case 2:
+      ClassName.push('alert-danger');
+      break;
+
   }
   
+  alert.classList.add(ClassName[0]);
+  alert.classList.add(ClassName[1]);
+  alert.textContent = TestAlert;
+  alert.setAttribute('style', 'display: block;');
+
+  setTimeout(function () {
+    alert.textContent = '';
+    alert.setAttribute('style', 'display: none;');
+  }, 2000);
+
+}
 
 
 
+function getformdataByjQuery(){
+  var _data = {
+    type: 1,
+    FirstName: $('#inputFirstName').val(),
+    LastName: $('#inputLastName').val(),
+    NickName: $('#inputNickName').val(),
+    DateOfBirth: $('#inputDateOfBirth').val(),
+    Phone: $('#inputPhone').val(),
+    Email: $('#inputEmail').val(),
+    Address: $('#inputAddress').val(),
+    Address2: $('#inputAddress2').val(),
+    City: $('#inputCity').val(),
+    Province: $('#inputProvince').val(),
+    Country: $('#inputCountry').val(),
+    PostalCode: $('#inputPostalCode').val(),
+    EducationalLevel: $('#inputEducationalLevel').val(),
+    Institution: $('#inputInstitution').val(),
+    Major: $('#inputMajor').val(),
+    GraduateDate: $('#inputGraduateDate').val(),
+    Display: $('#file').val()
+  }
+  return _data;
+}
 
 
 

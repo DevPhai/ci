@@ -47,7 +47,7 @@ code {
 }
 
 #body {
-	margin: 0 15px 0 15px;
+	margin: 0 0 0 15px;
 }
 
 p.footer {
@@ -95,12 +95,13 @@ td>svg:hover {
 	padding: 20px 50px 20px 50px;
 }
 
-.buttonAdd {
-	grid-template-columns: max-content;
-	padding: 10px;
-	display: flex;
-	justify-content: flex-end;
+.headtitle {
+	display: grid;
+	grid-template-columns: 2fr 1fr 1fr;
+	padding: 10px 15px 10px 15px;
+
 }
+
 
 .close {
 	font-size: 2rem !important;

@@ -7,7 +7,8 @@ class Customer extends CI_Controller {
 	{
 			parent::__construct();
 			$this->load->model('customer_model');
-			;
+			$this->load->helper('url'); 
+			$this->load->database();
 	}
 
 	public function index()
@@ -24,20 +25,49 @@ class Customer extends CI_Controller {
 
 	public function bindLoadListCustomer()
 	{
-        $this->member_model->get_customer();
+
+		$order_index = $this->input->get('order[0][column]');
+        $param['page_size'] = $this->input->get('length');
+        $param['start'] = $this->input->get('start');
+        $param['draw'] = $this->input->get('draw');
+        $param['keyword'] = trim($this->input->get('search[value]'));
+        $param['column'] = $this->input->get("columns[{$order_index}][data]");
+        $param['dir'] = $this->input->get('order[0][dir]');
+ 
+        $results =$this->customer_model->get_customer($param);
+ 
+        $data['draw'] = $param['draw'];
+        $data['recordsTotal'] = $results['count'];
+        $data['recordsFiltered'] = $results['count_condition'];
+        $data['data'] = $results['data'];
+        $data['error'] = $results['error_message'];
+ 
+        $this->output->set_content_type('application/json')->set_output(json_encode($data));
+
+        
 	}
 
     public function bindLoadCustomerByid()
 	{
-		$this->member_model->get_customerByid();
+		$this->customer_model->get_customerByid();
 	}
 
     public function bindSaveCustomer()
 	{
-	
+
 		
-        
-         $this->input->post('name');
+		if($this->input->post('type')=="1")
+		{
+		$data['FirstName']=$this->input->post('FirstName');
+		$data['LastName']=$this->input->post('LastName');
+		$data['NickName']=$this->input->post('NickName');
+		$data['DateOfBirth']=$this->input->post('DateOfBirth');
+		$data['PhoneNumber']=$this->input->post('Phone');
+		$this->customer_model->insert_customer($data);	
+		echo json_encode(array(
+			"statusCode"=>200
+		));
+	}
         
       
 
@@ -47,17 +77,17 @@ class Customer extends CI_Controller {
 		// 	'LastName' => $this->input->post('LastName')
 		// 	);
 
-		$this->member_model->insert_customer($data);
+		
 	}
 
     public function bindEditCustomer()
 	{
-        $this->member_model->update_customer();
+        $this->customer_model->update_customer();
 	}
 
 	public function bindDelCustomer()
 	{
-		$this->member_model->delete_customer();
+		$this->customer_model->delete_customer();
 	}
 
 
