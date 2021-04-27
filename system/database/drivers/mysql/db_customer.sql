@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 25, 2021 at 08:14 PM
+-- Generation Time: Apr 27, 2021 at 07:38 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -20,6 +20,37 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_customer`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `infomation`
+--
+
+CREATE TABLE `infomation` (
+  `id` int(32) NOT NULL,
+  `FirstName` varchar(255) NOT NULL,
+  `LastName` varchar(255) NOT NULL,
+  `NickName` varchar(255) NOT NULL,
+  `DateOfBirth` date NOT NULL,
+  `PhoneNumber` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `infomation`
+--
+
+INSERT INTO `infomation` (`id`, `FirstName`, `LastName`, `NickName`, `DateOfBirth`, `PhoneNumber`) VALUES
+(1, '1', '', '', '0000-00-00', ''),
+(2, 'ฐาปนา', 'ปะละศรี', '', '0000-00-00', ''),
+(3, 'ฐาปนา', 'ปะละศรี', 'ไผ่', '0000-00-00', '0876615414'),
+(4, 'ฐาปนา', 'ปะละศรี', 'ไผ่', '0000-00-00', '0876615414'),
+(5, 'ฐาปนา', 'ปะละศรี', 'ไผ่', '0000-00-00', '0876615414'),
+(6, 'กิตติธร', 'ปะละศรี', 'แผน', '0000-00-00', '0876615414'),
+(7, 'นัม', 'โดซาน', 'โดซาน', '0000-00-00', '0876615414'),
+(8, 'สุนันทา', 'พันธ์เดช', 'แนน', '1993-08-27', '0876614458'),
+(9, 'Eveline', 'Rau', 'Dell', '0000-00-00', '04161234587'),
+(10, 'Destany Windler', 'Zemlak', 'Reyes Dibbert', '1990-10-10', '462-874-4964');
 
 -- --------------------------------------------------------
 
@@ -59,12 +90,28 @@ CREATE TABLE `tbl_customerinfo` (
   `Institution` varchar(255) NOT NULL,
   `Major` varchar(255) NOT NULL,
   `GraduateDate` date NOT NULL,
-  `ImgProfile` binary(255) NOT NULL
+  `ImgProfile` varchar(255) NOT NULL,
+  `ImgName` varchar(100) NOT NULL,
+  `ImgType` char(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_customerinfo`
+--
+
+INSERT INTO `tbl_customerinfo` (`Customer_id`, `FirstName`, `LastName`, `NickName`, `PhoneNumber`, `Email`, `Address`, `Address2`, `City`, `Province`, `Country`, `PostalCode`, `DateOfBirth`, `EducationalLevel`, `Institution`, `Major`, `GraduateDate`, `ImgProfile`, `ImgName`, `ImgType`) VALUES
+('608843d72733a', 'Columbus Torphy', 'Lowe', 'Monte Trantow', '958-911-1874', 'your.email+faker91638@gmail.com', '50279 Felix Forges', '', 'West Noelside', 'Ohio', 'Cayman Islands', 507, '0000-00-00', 'Corporate Quality Facilitator', 'Chief Data Coordinator', 'Central Creative Consultant', '0000-00-00', 'images.jpg', '', ''),
+('608845b21c1c6', 'Isidro Bechtelar', 'Powlowski', 'Adriel Greenholt', '876-704-2600', 'your.email+faker60303@gmail.com', '92745 Becker Underpass', 'Leannon - Schaden', 'Carlieberg', 'Delaware', 'Bangladesh', 502, '0000-00-00', 'District Configuration Supervisor', 'Fahey Group', 'Direct Markets Strategist', '2021-09-04', 'ZT6F8B3T.jpg', '', '');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `infomation`
+--
+ALTER TABLE `infomation`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `items`
@@ -81,6 +128,12 @@ ALTER TABLE `tbl_customerinfo`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `infomation`
+--
+ALTER TABLE `infomation`
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `items`
