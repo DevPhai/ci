@@ -35,13 +35,16 @@ function GetListCustomer() {
         let html = "";
         for (let index = 0; index < dataResult.length; index++) {
           let ListNo = index+1;
+          var DateOfBirth = dataResult[index].DateOfBirth.split("-");
+          var strDateOfBirth = DateOfBirth[2] + '/' +  DateOfBirth[1] + '/' +  DateOfBirth[0];
+        
           html += "<tr>";
           html += "<th scope='row'>" + ListNo + "</th>";
 
           html += "<td>" + dataResult[index].FirstName + "</td>";
           html += "<td>" + dataResult[index].LastName + "</td>";
           html += "<td>" + dataResult[index].NickName + "</td>";
-          html += "<td>" + dataResult[index].DateOfBirth + "</td>";
+          html += "<td>" + strDateOfBirth + "</td>";
           html += "<td>" + dataResult[index].PhoneNumber + "</td>";
           html += "<td>";
           let id =  '"' + dataResult[index].Customer_id + '"';
@@ -246,10 +249,16 @@ function GetCustomerById($id) {
     success: function (dataResult) {
       console.log(dataResult);
       if (dataResult != null && dataResult != undefined) {
+
+       var DateOfBirth = dataResult.data[0].DateOfBirth.split("-");
+       var GraduateDate = dataResult.data[0].GraduateDate.split("-");
+       var strDateOfBirth = DateOfBirth[2] + '/' +  DateOfBirth[1] + '/' +  DateOfBirth[0];
+       var strGraduateDate = GraduateDate[2] + '/' +  GraduateDate[1] + '/' +  GraduateDate[0];
+
         $('#inputFirstName').val(dataResult.data[0].FirstName);
         $('#inputLastName').val(dataResult.data[0].LastName);
         $('#inputNickName').val(dataResult.data[0].NickName);
-        $('#inputDateOfBirth').val(dataResult.data[0].DateOfBirth);
+        $('#inputDateOfBirth').val(strDateOfBirth);
         $('#inputPhone').val(dataResult.data[0].PhoneNumber);
         $('#inputEmail').val(dataResult.data[0].Email);
         $('#inputAddress').val(dataResult.data[0].Address);
@@ -261,7 +270,7 @@ function GetCustomerById($id) {
         $('#inputEducationalLevel').val(dataResult.data[0].EducationalLevel);
         $('#inputInstitution').val(dataResult.data[0].Institution);
         $('#inputMajor').val(dataResult.data[0].Major);
-        $('#inputGraduateDate').val(dataResult.data[0].GraduateDate);
+        $('#inputGraduateDate').val(strGraduateDate);
         $('#file').val(dataResult.data[0].ImgProfile);
         $('#hidCustommerID').val(dataResult.data[0].Customer_id);
       }
