@@ -31,8 +31,9 @@ class Customer_model extends CI_Model {
         return true; 
     }
 
-    public function update_customer($data)
+    public function update_customer($data,$id)
     {
+        $this -> db -> where('Customer_id', $id);
         $this->db->update('tbl_customerinfo',$data);
         return true; 
     }

@@ -80,7 +80,7 @@ class Customer extends CI_Controller {
 
     public function bindEditCustomer()
 	{
-		$data['Customer_id']=$this->input->post('Customer_id');
+		$id = $this->input->post('Customer_id');
 		$data['FirstName']=$this->input->post('FirstName');
 		$data['LastName']=$this->input->post('LastName');
 		$data['NickName']=$this->input->post('NickName');
@@ -104,7 +104,7 @@ class Customer extends CI_Controller {
 		$GraduateDate = explode('/',$data['GraduateDate']);
 		$data['GraduateDate'] = $GraduateDate[2] . '-' . $GraduateDate[1] . '-' .  $GraduateDate[0];
 
-		$this->customer_model->update_customer($data);	
+		$this->customer_model->update_customer($data,$id);	
 		echo json_encode(array(
 			"statusCode"=>200
 		));
