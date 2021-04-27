@@ -97,9 +97,12 @@ td>svg:hover {
 
 .headtitle {
 	display: grid;
-	grid-template-columns: 2fr 1fr 1fr;
+	grid-template-columns: 2fr 1fr;
 	padding: 10px 15px 10px 15px;
+}
 
+.headtitle > div > h1{
+	margin: 0 0 0 0  !important;
 }
 
 
@@ -115,4 +118,9 @@ form{
 .file {
 	visibility: hidden;
 	position: absolute;
+  }
+
+  button{
+	  border-radius: 10px !important;
+	  
   }

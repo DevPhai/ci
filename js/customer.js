@@ -1,5 +1,5 @@
 $(function() {
-
+  var onload = GetListCustomer();
   $(document).on('show.bs.modal', '#CustomerModal', function (e) {
     $('#nav-Info-tab').click();
 })
@@ -14,14 +14,6 @@ $("#AddCoustomer").click(function() {
   buttonAction.setAttribute("onclick","BindSave();");
 });
 
-$("#EditCoustomer").click(function() {
-  let titleModal = document.getElementById('CustomerModalLabel')
-  let buttonAction = document.getElementById('ActionToCustomer')
-  titleModal.textContent = "Edit Customer" ;
-  buttonAction.textContent = "Update";
-  buttonAction.className = "btn btn-warning";
-  buttonAction.setAttribute("onclick","BindEdit();");
-});
 
 });
 
@@ -31,42 +23,41 @@ $("#EditCoustomer").click(function() {
 
 
 function GetListCustomer() {
-  var table = $('#_ListCustomer').DataTable({
-    pageLength: 10,
-    serverSide: true,
-    processing: true,
-    ajax: {
-      url: base_url + 'index.php/customer/bindLoadListCustomer',
-      method: 'GET',
-    },
-    'columns': [
-      {
-        data: 'id',
-        orderable: true
-      },
-      {
-        data: 'FirstName'
-      },
-      {
-        data: 'LastName'
-      },
-      {
-        data: 'NickName'
-      },
-      {
-        data: 'DateOfBirth'
-      },
-      {
-        data:'Action',
-        render: function (data,type,row){
-          var dataid = row['id'];
-          var btnAction = '<i id="EditCoustomer" class="fas fa-pen text-primary" data-toggle="modal"data-target="#CustomerModal" data-id="'+dataid+'"></i>';
-          var btnDelete = '<i id="'+dataid+'" class="ml-2 fas fa-trash-alt text-danger"></i >';
-          var Action = btnAction + btnDelete;
-          return Action;
+  $.ajax({
+    url: base_url + 'index.php/Customer/bindLoadListCustomer',
+    method: 'GET',
+    dataType: "json",
+
+    success: function (dataResult) {
+      if (dataResult != null && dataResult != undefined) {
+        let html = '';
+        for (let index = 0; index < dataResult.length; index++) {
+          let ListNo = index+1;
+          html += '<tr>';
+          html += '<th scope="row">' + ListNo + '</th>';
+
+          html += '<td>' + dataResult[index].FirstName + '</td>';
+          html += '<td>' + dataResult[index].LastName + '</td>';
+          html += '<td>' + dataResult[index].NickName + '</td>';
+          html += '<td>' + dataResult[index].DateOfBirth + '</td>';
+          html += '<td>' + dataResult[index].PhoneNumber + '</td>';
+          html += '<td>';
+
+          html += '<i class="fas fa-pen text-primary" " onclick="goEdit('+dataResult[index].id+')"></i>';
+          html += '<i class="ml-2 fas fa-trash-alt text-danger" onclick="goDel('+dataResult[index].id+')"></i>';
+
+          html += '</td>';
+          html += '</tr>';
         }
+        $('tbody').html(html);
       }
-    ]
+
+    },
+    error: function (xhr) {
+
+      console.log('Error Not response !! ');
+
+    }
   });
 
 }
@@ -109,6 +100,41 @@ function BindSave() {
 }
 
 
+function BindEdit(){
+  var formdata = (getformdataByjQuery());
+  console.log(formdata);
+
+  $.ajax({
+    url: base_url + 'index.php/Customer/bindSaveCustomer',
+    data: formdata,
+    method: 'POST',
+    dataType: "json",
+
+    beforeSend: function () {
+      $('#ActionToCustomer').prop('disabled', true);
+    },
+    success: function (dataResult) {
+
+      if (dataResult.statusCode == 200) {
+        alertdialog(1, 'Save Success ');   
+      }
+      else {
+        alertdialog(2, 'Save Error ');
+      }
+      
+      $('#ActionToCustomer').prop("disabled", false)
+      $('#CustomerModal').modal('hide');
+
+    },
+    error: function (xhr) {
+      $('#ActionToCustomer').attr('disabled', false);
+      $('#CustomerModal').modal('hide');
+      alertdialog(2, 'Error Not response !! ');
+
+    }
+  });
+}
+
 
 function alertdialog(alertType, TestAlert) {
   let ClassName = new Array();
@@ -135,6 +161,9 @@ function alertdialog(alertType, TestAlert) {
   setTimeout(function () {
     alert.textContent = '';
     alert.setAttribute('style', 'display: none;');
+    if(alertType ==1){
+      GetListCustomer();
+    }
   }, 2000);
 
 }
@@ -166,7 +195,15 @@ function getformdataByjQuery(){
 }
 
 
-
+function goEdit(id){
+  let titleModal = document.getElementById('CustomerModalLabel')
+  let buttonAction = document.getElementById('ActionToCustomer')
+  titleModal.textContent = "Edit Customer" ;
+  buttonAction.textContent = "Update";
+  buttonAction.className = "btn btn-warning";
+  buttonAction.setAttribute("onclick","BindEdit();");
+  $('#CustomerModal').modal('show');
+}
 
 
 
@@ -239,33 +276,7 @@ $('input[type="file"]').change(function(e) {
 
 
 
-function BindEdit(){
-  $.ajax({
-    type: 'POST',
-    url: GetUrl('ApproveCenter/UpdateApproveContract'),
-    data: model,
-    type: 'post',
-    datatype: "json",
-    contentType: 'application/json;',
-    traditional: true,
-    success: function (data) {
-        if (data.IsResult) {
-            AlertSuccess();
-            OpenLoading(false);
-            $('#modalApprovel').modal('toggle');
-            window.location.reload()
-        } else {
-            AlertError();
-            OpenLoading(false);
-            $('#modalApprovel').modal('toggle');
-        }
-    },
-    error: function (xhr) {
-        OpenLoading(false);
-        NoticError("Error", lang.lblErrorOperation);
-    }
-});
-}
+
 
 
 

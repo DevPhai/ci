@@ -25,25 +25,9 @@ class Customer extends CI_Controller {
 
 	public function bindLoadListCustomer()
 	{
-
-		$order_index = $this->input->get('order[0][column]');
-        $param['page_size'] = $this->input->get('length');
-        $param['start'] = $this->input->get('start');
-        $param['draw'] = $this->input->get('draw');
-        $param['keyword'] = trim($this->input->get('search[value]'));
-        $param['column'] = $this->input->get("columns[{$order_index}][data]");
-        $param['dir'] = $this->input->get('order[0][dir]');
  
-        $results =$this->customer_model->get_customer($param);
- 
-        $data['draw'] = $param['draw'];
-        $data['recordsTotal'] = $results['count'];
-        $data['recordsFiltered'] = $results['count_condition'];
-        $data['data'] = $results['data'];
-        $data['error'] = $results['error_message'];
- 
-        $this->output->set_content_type('application/json')->set_output(json_encode($data));
-
+        $results =$this->customer_model->get_customer();
+		echo json_encode($results);
         
 	}
 
@@ -55,23 +39,24 @@ class Customer extends CI_Controller {
     public function bindSaveCustomer()
 	{
 
-		
 		if($this->input->post('type')=="1")
 		{
-		$data['FirstName']=$this->input->post('FirstName');
-		$data['LastName']=$this->input->post('LastName');
-		$data['NickName']=$this->input->post('NickName');
-		$data['DateOfBirth']=$this->input->post('DateOfBirth');
-		$data['PhoneNumber']=$this->input->post('Phone');
-		$this->customer_model->insert_customer($data);	
-		echo json_encode(array(
-			"statusCode"=>200
-		));
-	}
+			$data['FirstName']=$this->input->post('FirstName');
+			$data['LastName']=$this->input->post('LastName');
+			$data['NickName']=$this->input->post('NickName');
+			$data['DateOfBirth']=$this->input->post('DateOfBirth');
+			$data['PhoneNumber']=$this->input->post('Phone');
+
+			$DateOfBirth = explode('/',$data['DateOfBirth']);
+			$data['DateOfBirth'] = $DateOfBirth[2] . '-' . $DateOfBirth[1] . '-' .  $DateOfBirth[0];
+
+			$this->customer_model->insert_customer($data);	
+			echo json_encode(array(
+				"statusCode"=>200
+			));
+		}
         
       
-
-
 		// $data = array(
 		// 	'FirstName' => $this->input->post('FirstName'),
 		// 	'LastName' => $this->input->post('LastName')
@@ -91,6 +76,6 @@ class Customer extends CI_Controller {
 	}
 
 
-
+    
     
 }
