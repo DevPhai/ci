@@ -23,6 +23,7 @@
                 <form id="formCustomer">
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-Info" role="tabpanel" aria-labelledby="nav-Info-tab">
+                    <input type="hidden" id="hidCustommerID">
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputFirstName">First Name</label>

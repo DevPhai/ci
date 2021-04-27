@@ -31,48 +31,91 @@ class Customer extends CI_Controller {
         
 	}
 
-    public function bindLoadCustomerByid()
+    public function bindLoadCustomerByid($id)
 	{
-		$this->customer_model->get_customerByid();
+		if($id != null)
+		{
+			$query = $this->customer_model->get_customerByid($id);
+			echo json_encode(array(
+				"statusCode"=>200,
+				"data"=>$query
+			));
+		}
 	}
 
     public function bindSaveCustomer()
 	{
 
-		if($this->input->post('type')=="1")
-		{
+		    $data['Customer_id']=uniqid();
 			$data['FirstName']=$this->input->post('FirstName');
 			$data['LastName']=$this->input->post('LastName');
 			$data['NickName']=$this->input->post('NickName');
 			$data['DateOfBirth']=$this->input->post('DateOfBirth');
-			$data['PhoneNumber']=$this->input->post('Phone');
+			$data['PhoneNumber']=$this->input->post('PhoneNumber');
+			$data['Email']=$this->input->post('Email');
+			$data['Address']=$this->input->post('Address');
+			$data['Address2']=$this->input->post('Address2');
+			$data['City']=$this->input->post('City');
+			$data['Province']=$this->input->post('Province');
+			$data['Country']=$this->input->post('Country');
+			$data['PostalCode']=$this->input->post('PostalCode');
+			$data['EducationalLevel']=$this->input->post('EducationalLevel');
+			$data['Institution']=$this->input->post('Institution');
+			$data['Major']=$this->input->post('Major');
+			$data['GraduateDate']=$this->input->post('GraduateDate');
+			$data['ImgProfile']=$this->input->post('ImgProfile');
 
 			$DateOfBirth = explode('/',$data['DateOfBirth']);
 			$data['DateOfBirth'] = $DateOfBirth[2] . '-' . $DateOfBirth[1] . '-' .  $DateOfBirth[0];
+			$GraduateDate = explode('/',$data['GraduateDate']);
+			$data['GraduateDate'] = $GraduateDate[2] . '-' . $GraduateDate[1] . '-' .  $GraduateDate[0];
 
 			$this->customer_model->insert_customer($data);	
 			echo json_encode(array(
 				"statusCode"=>200
 			));
-		}
-        
-      
-		// $data = array(
-		// 	'FirstName' => $this->input->post('FirstName'),
-		// 	'LastName' => $this->input->post('LastName')
-		// 	);
-
 		
+    
 	}
 
     public function bindEditCustomer()
 	{
-        $this->customer_model->update_customer();
+		$data['Customer_id']=$this->input->post('Customer_id');
+		$data['FirstName']=$this->input->post('FirstName');
+		$data['LastName']=$this->input->post('LastName');
+		$data['NickName']=$this->input->post('NickName');
+		$data['DateOfBirth']=$this->input->post('DateOfBirth');
+		$data['PhoneNumber']=$this->input->post('PhoneNumber');
+		$data['Email']=$this->input->post('Email');
+		$data['Address']=$this->input->post('Address');
+		$data['Address2']=$this->input->post('Address2');
+		$data['City']=$this->input->post('City');
+		$data['Province']=$this->input->post('Province');
+		$data['Country']=$this->input->post('Country');
+		$data['PostalCode']=$this->input->post('PostalCode');
+		$data['EducationalLevel']=$this->input->post('EducationalLevel');
+		$data['Institution']=$this->input->post('Institution');
+		$data['Major']=$this->input->post('Major');
+		$data['GraduateDate']=$this->input->post('GraduateDate');
+		$data['ImgProfile']=$this->input->post('ImgProfile');
+
+		$DateOfBirth = explode('/',$data['DateOfBirth']);
+		$data['DateOfBirth'] = $DateOfBirth[2] . '-' . $DateOfBirth[1] . '-' .  $DateOfBirth[0];
+		$GraduateDate = explode('/',$data['GraduateDate']);
+		$data['GraduateDate'] = $GraduateDate[2] . '-' . $GraduateDate[1] . '-' .  $GraduateDate[0];
+
+		$this->customer_model->update_customer($data);	
+		echo json_encode(array(
+			"statusCode"=>200
+		));
 	}
 
-	public function bindDelCustomer()
+	public function bindDelCustomer($id)
 	{
-		$this->customer_model->delete_customer();
+		$this->customer_model->delete_customer($id);
+		echo json_encode(array(
+			"statusCode"=>200
+		));
 	}
 
 
