@@ -1,3 +1,0 @@
-<form id="Infomation">
-   
-</form>

@@ -337,7 +337,7 @@ $('input[type="file"]').change(function (e) {
 
 async function getCountry(){
   console.log('getCountry');
-  let response = await fetch('https://api.printful.com/countries');
+  let response = await fetch('https://restcountries.eu/rest/v2/all');
   let data = await response.json();
   //addOption(data,'inputCountry');
   console.log(data);

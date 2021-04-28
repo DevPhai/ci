@@ -16,6 +16,7 @@ class Customer extends CI_Controller {
         $this->load->view('share/default_css');
         $this->load->view('customer/Customercss');
         $this->load->view('share/header');
+		$this->load->view('share/NavBar');
 		$this->load->view('customer/Customer_manage');
         $this->load->view('customer/Customer_Modal');
         $this->load->view('share/default_js');
