@@ -1,28 +1,25 @@
-$(function() {
-  var onload = GetListCustomer();
-  $(document).on('show.bs.modal', '#CustomerModal', function (e) {
-    $('#nav-Info-tab').click();
-})
-
-
-$("#AddCoustomer").click(function() {
-  let titleModal = document.getElementById('CustomerModalLabel')
-  let buttonAction = document.getElementById('ActionToCustomer')
-  titleModal.textContent = "Add Customer" ;
-  buttonAction.textContent = "Save";
-  buttonAction.className = "btn btn-success";
-  buttonAction.setAttribute("onclick","BindSave();");
-  clearFormdata();
+$('#inputDateOfBirth').datepicker({
+  autoclose: true
+});
+$('#inputGraduateDate').datepicker({
+  autoclose: true
 });
 
+$(function () {
+   GetListCustomer();
+  $("#AddCoustomer").on("click", function () {
+    $('#ActionToCustomer').show();
+    let titleModal = document.getElementById('CustomerModalLabel')
+    let buttonAction = document.getElementById('ActionToCustomer')
+    titleModal.textContent = "Add Customer";
+    buttonAction.textContent = "Save";
+    buttonAction.className = "btn btn-success";
+    buttonAction.setAttribute("onclick", "BindSave();");
+    clearFormdata();
+    $('#nav-Info-tab').trigger('click');
+  });
 
 });
-
-
-  $('#inputDateOfBirth').datepicker();
-  $('#inputGraduateDate').datepicker();
-
-
 
 function GetListCustomer() {
   $.ajax({
@@ -34,25 +31,26 @@ function GetListCustomer() {
       if (dataResult != null && dataResult != undefined) {
         let html = "";
         for (let index = 0; index < dataResult.length; index++) {
-          let ListNo = index+1;
+          let ListNo = index + 1;
           var DateOfBirth = dataResult[index].DateOfBirth.split("-");
-          var strDateOfBirth = DateOfBirth[2] + '/' +  DateOfBirth[1] + '/' +  DateOfBirth[0];
-        
-          html += "<tr>";
-          html += "<th scope='row'>" + ListNo + "</th>";
+          var strDateOfBirth = DateOfBirth[2] + '/' + DateOfBirth[1] + '/' + DateOfBirth[0];
+          let id = '"' + dataResult[index].Customer_id + '"';
+          let Name = '"' + dataResult[index].FirstName + '"';
 
+          html += "<tr class='customerlist' id='"+id+"'>";
+          html += "<th scope='row'>" + ListNo + "</th>";
           html += "<td>" + dataResult[index].FirstName + "</td>";
           html += "<td>" + dataResult[index].LastName + "</td>";
           html += "<td>" + dataResult[index].NickName + "</td>";
           html += "<td>" + strDateOfBirth + "</td>";
           html += "<td>" + dataResult[index].PhoneNumber + "</td>";
-          html += "<td>";
-          let id =  '"' + dataResult[index].Customer_id + '"';
-          let Name =  '"' + dataResult[index].FirstName + '"';
-          html += "<i class='fas fa-pen text-primary'  onclick='goEdit("+id+")'></i>";
-          html += "<i class='ml-2 fas fa-trash-alt text-danger' onclick='BindDelete("+id+","+Name+")'></i>";
-
-          html += "</td>";
+          html += "<th>";
+          html += "<i class='fas fa-edit text-primary mr-3'  onclick='goEdit(" + id + ")'></i>";
+          html += "<span>|</span>";
+          html += "<i class='ml-3 fas fa-trash-alt text-danger mr-3 ' onclick='BindDelete(" + id + "," + Name + ")'></i>";
+          html += "<span>|</span>";
+          html += "<i class='ml-3 fas fa-info-circle text-info' onclick='Detail(" + id + ")'></i>";
+          html += "</th>";
           html += "</tr>";
         }
         $('tbody').html(html);
@@ -69,84 +67,89 @@ function GetListCustomer() {
 }
 
 
-
-
-
 function BindSave() {
-
   var formdata = (getformdataByjQuery());
   console.log(formdata);
+  var form = $("#formCustomer")
+  if (form[0].checkValidity() === true) {
+    $.ajax({
+      url: base_url + 'index.php/Customer/bindSaveCustomer',
+      data: formdata,
+      method: 'POST',
+      dataType: "json",
 
-  $.ajax({
-    url: base_url + 'index.php/Customer/bindSaveCustomer',
-    data: formdata,
-    method: 'POST',
-    dataType: "json",
+      beforeSend: function () {
+        $('#ActionToCustomer').prop('disabled', true);
+      },
+      success: function (dataResult) {
 
-    beforeSend: function () {
-      $('#ActionToCustomer').prop('disabled', true);
-    },
-    success: function (dataResult) {
+        if (dataResult.statusCode == 200) {
+          alertdialog(1, 'Save Success ');
+        }
+        else {
+          alertdialog(2, 'Save Error ');
+        }
 
-      if (dataResult.statusCode == 200) {
-        alertdialog(1, 'Save Success ');   
+        $('#ActionToCustomer').prop("disabled", false)
+        $('#CustomerModal').modal('hide');
+
+      },
+      error: function (xhr) {
+        $('#ActionToCustomer').attr('disabled', false);
+        $('#CustomerModal').modal('hide');
+        alertdialog(2, 'Error Not response !! ');
+
       }
-      else {
-        alertdialog(2, 'Save Error ');
-      }
-      
-      $('#ActionToCustomer').prop("disabled", false)
-      $('#CustomerModal').modal('hide');
-
-    },
-    error: function (xhr) {
-      $('#ActionToCustomer').attr('disabled', false);
-      $('#CustomerModal').modal('hide');
-      alertdialog(2, 'Error Not response !! ');
-
-    }
-  });
+    });
+  }
+  else {
+    form.addClass('was-validated');
+  }
 }
 
 
-function BindEdit(){
+function BindEdit() {
   var formdata = (getformdataByjQuery());
   console.log(formdata);
-  $.ajax({
-    url: base_url + 'index.php/Customer/bindEditCustomer',
-    data: formdata,
-    method: 'POST',
-    dataType: "json",
+  var form = $("#formCustomer")
+  if (form[0].checkValidity() === true) {
+    $.ajax({
+      url: base_url + 'index.php/Customer/bindEditCustomer',
+      data: formdata,
+      method: 'POST',
+      dataType: "json",
 
-    beforeSend: function () {
-      $('#ActionToCustomer').prop('disabled', true);
-    },
-    success: function (dataResult) {
+      beforeSend: function () {
+        $('#ActionToCustomer').prop('disabled', true);
+      },
+      success: function (dataResult) {
 
-      if (dataResult.statusCode == 200) {
-        alertdialog(1, 'Update Success ');   
+        if (dataResult.statusCode == 200) {
+          alertdialog(1, 'Update Success ');
+        }
+        else {
+          alertdialog(2, 'Update Error ');
+        }
+
+        $('#ActionToCustomer').prop("disabled", false)
+        $('#CustomerModal').modal('hide');
+
+      },
+      error: function (xhr) {
+        $('#ActionToCustomer').attr('disabled', false);
+        $('#CustomerModal').modal('hide');
+        alertdialog(2, 'Error Not response !! ');
+
       }
-      else {
-        alertdialog(2, 'Update Error ');
-      }
-      
-      $('#ActionToCustomer').prop("disabled", false)
-      $('#CustomerModal').modal('hide');
-
-    },
-    error: function (xhr) {
-      $('#ActionToCustomer').attr('disabled', false);
-      $('#CustomerModal').modal('hide');
-      alertdialog(2, 'Error Not response !! ');
-
-    }
-  });
+    });
+  } else {
+    form.addClass('was-validated');
+  }
 }
 
 
 function BindDelete($id, $name) {
-
-  if (confirm("Do you want to delete " + $name +" ?")) {
+  if (confirm("Do you want to delete " + $name + " ?")) {
     $.ajax({
       url: base_url + 'index.php/Customer/bindDelCustomer/' + $id,
       method: 'POST',
@@ -181,9 +184,8 @@ function alertdialog(alertType, TestAlert) {
     case 2:
       ClassName.push('alert-danger');
       break;
-
   }
-  
+
   alert.classList.add(ClassName[0]);
   alert.classList.add(ClassName[1]);
   alert.textContent = TestAlert;
@@ -192,7 +194,7 @@ function alertdialog(alertType, TestAlert) {
   setTimeout(function () {
     alert.textContent = '';
     alert.setAttribute('style', 'display: none;');
-    if(alertType ==1){
+    if (alertType == 1) {
       GetListCustomer();
     }
     clearFormdata();
@@ -201,8 +203,7 @@ function alertdialog(alertType, TestAlert) {
 }
 
 
-
-function getformdataByjQuery(){
+function getformdataByjQuery() {
   var _data = {
     FirstName: $('#inputFirstName').val(),
     LastName: $('#inputLastName').val(),
@@ -221,23 +222,36 @@ function getformdataByjQuery(){
     Major: $('#inputMajor').val(),
     GraduateDate: $('#inputGraduateDate').val(),
     ImgProfile: $('#file').val(),
-    Customer_id:$('#hidCustommerID').val()
+    Customer_id: $('#hidCustommerID').val()
   }
   return _data;
 }
 
 
-function goEdit($id){
+function goEdit($id) {
+  $('#ActionToCustomer').show();
   let titleModal = document.getElementById('CustomerModalLabel')
   let buttonAction = document.getElementById('ActionToCustomer')
-  titleModal.textContent = "Edit Customer" ;
+  titleModal.textContent = "Edit Customer";
   buttonAction.textContent = "Update";
   buttonAction.className = "btn btn-warning";
-  buttonAction.setAttribute("onclick","BindEdit();");
+  buttonAction.setAttribute("onclick", "BindEdit();");
   GetCustomerById($id);
   $('#CustomerModal').modal('show');
+  $('#nav-Info-tab').trigger('click')
 }
 
+
+function Detail($id) {
+  let titleModal = document.getElementById('CustomerModalLabel')
+  let buttonAction = document.getElementById('ActionToCustomer')
+  titleModal.textContent = "Detail Customer";
+  $('#ActionToCustomer').hide();
+  GetCustomerById($id);
+  disabledform();
+  $('#CustomerModal').modal('show');
+  $('#nav-Info-tab').trigger('click')
+}
 
 
 function GetCustomerById($id) {
@@ -250,10 +264,10 @@ function GetCustomerById($id) {
       console.log(dataResult);
       if (dataResult != null && dataResult != undefined) {
 
-       var DateOfBirth = dataResult.data[0].DateOfBirth.split("-");
-       var GraduateDate = dataResult.data[0].GraduateDate.split("-");
-       var strDateOfBirth = DateOfBirth[2] + '/' +  DateOfBirth[1] + '/' +  DateOfBirth[0];
-       var strGraduateDate = GraduateDate[2] + '/' +  GraduateDate[1] + '/' +  GraduateDate[0];
+        var DateOfBirth = dataResult.data[0].DateOfBirth.split("-");
+        var GraduateDate = dataResult.data[0].GraduateDate.split("-");
+        var strDateOfBirth = DateOfBirth[2] + '/' + DateOfBirth[1] + '/' + DateOfBirth[0];
+        var strGraduateDate = GraduateDate[2] + '/' + GraduateDate[1] + '/' + GraduateDate[0];
 
         $('#inputFirstName').val(dataResult.data[0].FirstName);
         $('#inputLastName').val(dataResult.data[0].LastName);
@@ -274,12 +288,9 @@ function GetCustomerById($id) {
         $('#file').val(dataResult.data[0].ImgProfile);
         $('#hidCustommerID').val(dataResult.data[0].Customer_id);
       }
-
     },
     error: function (xhr) {
-
       console.log('Error Not response !! ');
-
     }
   });
 
@@ -290,8 +301,39 @@ function clearFormdata() {
   $form.find('input[type=text],input[type=Phone],input[type=Email]').each(function () {
     $(this).val('');
   });
-  $("#preview").attr('src',base_url + 'img/person.jpg');
+  $("#preview").attr('src', base_url + 'img/person.jpg');
+  $("#formCustomer").removeClass('was-validated');
 }
+
+function disabledform(){
+  var $form = $('#formCustomer');
+  $form.find('input[type=text],input[type=Phone],input[type=Email]').each(function () {
+    $(this).prop("disabled", true);
+  });
+}
+
+
+
+$(document).on("click", ".browse", function () {
+  var file = $(this).parents().find(".file");
+  file.trigger("click");
+});
+$('input[type="file"]').change(function (e) {
+  var fileName = e.target.files[0].name;
+  $("#file").val(fileName);
+
+  var reader = new FileReader();
+  reader.onload = function (e) {
+    // get loaded data and render thumbnail.
+    document.getElementById("preview").src = e.target.result;
+
+    console.log(e.target.result);
+  };
+  // read the image file as a data URL.
+  let img = reader.readAsDataURL(this.files[0]);
+  console.log(img);
+});
+
 
 // async function getCountry(){
 //   console.log('getCountry');
@@ -331,36 +373,6 @@ function clearFormdata() {
 
 // }
 // request.send();
-
-
-
-$(document).on("click", ".browse", function() {
-  var file = $(this).parents().find(".file");
-  file.trigger("click");
-});
-$('input[type="file"]').change(function(e) {
-  var fileName = e.target.files[0].name;
-  $("#file").val(fileName);
-
-  var reader = new FileReader();
-  reader.onload = function(e) {
-    // get loaded data and render thumbnail.
-    document.getElementById("preview").src = e.target.result;
-
-    console.log(e.target.result);
-  };
-  // read the image file as a data URL.
-  let img = reader.readAsDataURL(this.files[0]);
-  console.log(img);
-});
-
-
-
-
-
-
-
-
 
 
 

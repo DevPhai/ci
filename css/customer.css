@@ -91,7 +91,7 @@ td>svg:hover {
 	border-radius: 1rem !important;
 }
 
-.modal-dialog > .modal-content > .modal-body{
+.modal-dialog>.modal-content>.modal-body {
 	padding: 20px 50px 20px 50px;
 }
 
@@ -101,26 +101,48 @@ td>svg:hover {
 	padding: 10px 15px 10px 15px;
 }
 
-.headtitle > div > h1{
-	margin: 0 0 0 0  !important;
+.headtitle>div>h1 {
+	margin: 0 0 0 0 !important;
 }
-
 
 .close {
 	font-size: 2rem !important;
 	text-shadow: none !important;
 }
 
-form{
+form {
 	padding: 15px 15px 15px 15px;
 }
 
 .file {
 	visibility: hidden;
 	position: absolute;
-  }
+}
 
-  button{
-	  border-radius: 10px !important;
-	  
-  }
+button {
+	border-radius: 10px !important;
+}
+
+/* .customerlist:hover {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	cursor: pointer;
+} */
+
+.customerlist>th>svg:hover {
+	color: white;
+	box-shadow: 3px 2px 2px transparent, 0 0 25px #0000ffdb, 0 0 0px #00008bcf;
+	border-radius: 100%;
+	cursor: pointer;
+}
+
+.customerlist {
+	border-radius: 10px;
+}
+
+.customerlist td, .customerlist th {
+	border: none;
+}
+
+.table thead th {
+	border: none;
+}
