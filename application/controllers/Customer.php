@@ -64,12 +64,12 @@ class Customer extends CI_Controller {
 			$data['Institution']=$this->input->post('Institution');
 			$data['Major']=$this->input->post('Major');
 			$data['GraduateDate']=$this->input->post('GraduateDate');
-			$data['ImgProfile']=$this->input->post('ImgProfile');
+			//$data['ImgProfile']=$this->input->post('ImgProfile');
 
 			$DateOfBirth = explode('/',$data['DateOfBirth']);
-			$data['DateOfBirth'] = $DateOfBirth[2] . '-' . $DateOfBirth[1] . '-' .  $DateOfBirth[0];
+			$data['DateOfBirth'] = $DateOfBirth[2] . '-' . $DateOfBirth[0] . '-' .  $DateOfBirth[1];
 			$GraduateDate = explode('/',$data['GraduateDate']);
-			$data['GraduateDate'] = $GraduateDate[2] . '-' . $GraduateDate[1] . '-' .  $GraduateDate[0];
+			$data['GraduateDate'] = $GraduateDate[2] . '-' . $GraduateDate[0] . '-' .  $GraduateDate[1];
 
 			$this->customer_model->insert_customer($data);	
 			echo json_encode(array(
@@ -98,12 +98,12 @@ class Customer extends CI_Controller {
 		$data['Institution']=$this->input->post('Institution');
 		$data['Major']=$this->input->post('Major');
 		$data['GraduateDate']=$this->input->post('GraduateDate');
-		$data['ImgProfile']=$this->input->post('ImgProfile');
+		//$data['ImgProfile']=$this->input->post('ImgProfile');
 
 		$DateOfBirth = explode('/',$data['DateOfBirth']);
-		$data['DateOfBirth'] = $DateOfBirth[2] . '-' . $DateOfBirth[1] . '-' .  $DateOfBirth[0];
+		$data['DateOfBirth'] = $DateOfBirth[2] . '-' . $DateOfBirth[0] . '-' .  $DateOfBirth[1];
 		$GraduateDate = explode('/',$data['GraduateDate']);
-		$data['GraduateDate'] = $GraduateDate[2] . '-' . $GraduateDate[1] . '-' .  $GraduateDate[0];
+		$data['GraduateDate'] = $GraduateDate[2] . '-' . $GraduateDate[0] . '-' .  $GraduateDate[1];
 
 		$this->customer_model->update_customer($data,$id);	
 		echo json_encode(array(

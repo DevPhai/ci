@@ -1,14 +1,17 @@
 $('#inputDateOfBirth').datepicker({
-  autoclose: true
+  autoclose: true,
+  format: 'mm/dd/yyyy'
 });
 $('#inputGraduateDate').datepicker({
-  autoclose: true
+  autoclose: true,
+  format: 'mm/dd/yyyy'
 });
 
 $(function () {
    GetListCustomer();
   $("#AddCoustomer").on("click", function () {
     $('#ActionToCustomer').show();
+    disabledform(false);
     let titleModal = document.getElementById('CustomerModalLabel')
     let buttonAction = document.getElementById('ActionToCustomer')
     titleModal.textContent = "Add Customer";
@@ -33,7 +36,7 @@ function GetListCustomer() {
         for (let index = 0; index < dataResult.length; index++) {
           let ListNo = index + 1;
           var DateOfBirth = dataResult[index].DateOfBirth.split("-");
-          var strDateOfBirth = DateOfBirth[2] + '/' + DateOfBirth[1] + '/' + DateOfBirth[0];
+          var strDateOfBirth = DateOfBirth[1] + '/' + DateOfBirth[2] + '/' + DateOfBirth[0];
           let id = '"' + dataResult[index].Customer_id + '"';
           let Name = '"' + dataResult[index].FirstName + '"';
 
@@ -221,7 +224,7 @@ function getformdataByjQuery() {
     Institution: $('#inputInstitution').val(),
     Major: $('#inputMajor').val(),
     GraduateDate: $('#inputGraduateDate').val(),
-    ImgProfile: $('#file').val(),
+    ImgProfile: $('#file').text(),
     Customer_id: $('#hidCustommerID').val()
   }
   return _data;
@@ -230,6 +233,7 @@ function getformdataByjQuery() {
 
 function goEdit($id) {
   $('#ActionToCustomer').show();
+  disabledform(false);
   let titleModal = document.getElementById('CustomerModalLabel')
   let buttonAction = document.getElementById('ActionToCustomer')
   titleModal.textContent = "Edit Customer";
@@ -248,7 +252,7 @@ function Detail($id) {
   titleModal.textContent = "Detail Customer";
   $('#ActionToCustomer').hide();
   GetCustomerById($id);
-  disabledform();
+  disabledform(true);
   $('#CustomerModal').modal('show');
   $('#nav-Info-tab').trigger('click')
 }
@@ -261,13 +265,14 @@ function GetCustomerById($id) {
     dataType: "json",
 
     success: function (dataResult) {
+      console.log('GetCustomerById');
       console.log(dataResult);
       if (dataResult != null && dataResult != undefined) {
 
         var DateOfBirth = dataResult.data[0].DateOfBirth.split("-");
         var GraduateDate = dataResult.data[0].GraduateDate.split("-");
-        var strDateOfBirth = DateOfBirth[2] + '/' + DateOfBirth[1] + '/' + DateOfBirth[0];
-        var strGraduateDate = GraduateDate[2] + '/' + GraduateDate[1] + '/' + GraduateDate[0];
+        var strDateOfBirth = DateOfBirth[1] + '/' + DateOfBirth[2] + '/' + DateOfBirth[0];
+        var strGraduateDate = GraduateDate[1] + '/' + GraduateDate[2] + '/' + GraduateDate[0];
 
         $('#inputFirstName').val(dataResult.data[0].FirstName);
         $('#inputLastName').val(dataResult.data[0].LastName);
@@ -285,7 +290,7 @@ function GetCustomerById($id) {
         $('#inputInstitution').val(dataResult.data[0].Institution);
         $('#inputMajor').val(dataResult.data[0].Major);
         $('#inputGraduateDate').val(strGraduateDate);
-        $('#file').val(dataResult.data[0].ImgProfile);
+        $('#file').text(dataResult.data[0].ImgProfile);
         $('#hidCustommerID').val(dataResult.data[0].Customer_id);
       }
     },
@@ -302,46 +307,59 @@ function clearFormdata() {
     $(this).val('');
   });
   $("#preview").attr('src', base_url + 'img/person.jpg');
+  $("#file").text('');
+  $("#file").val('');
   $("#formCustomer").removeClass('was-validated');
 }
 
-function disabledform(){
+function disabledform(disabled){
   var $form = $('#formCustomer');
   $form.find('input[type=text],input[type=Phone],input[type=Email]').each(function () {
-    $(this).prop("disabled", true);
+   
+    if(disabled){
+      $(this).prop("disabled", true);
+    }else{
+      $(this).prop("disabled", false);
+    }
   });
+  if(disabled){
+    $('#file').hide();
+  }else{
+    $('#file').show();
+  }
+  
 }
 
 
 
-$(document).on("click", ".browse", function () {
-  var file = $(this).parents().find(".file");
-  file.trigger("click");
-});
-$('input[type="file"]').change(function (e) {
-  var fileName = e.target.files[0].name;
-  $("#file").val(fileName);
+// $(document).on("click", ".browse", function () {
+//   var file = $(this).parents().find(".file");
+//   file.trigger("click");
+// });
+// $('input[type="file"]').change(function (e) {
+//   var fileName = e.target.files[0].name;
+//   $("#file").val(fileName);
 
-  var reader = new FileReader();
-  reader.onload = function (e) {
-    // get loaded data and render thumbnail.
-    document.getElementById("preview").src = e.target.result;
+//   var reader = new FileReader();
+//   reader.onload = function (e) {
+//     // get loaded data and render thumbnail.
+//     document.getElementById("preview").src = e.target.result;
 
-    console.log(e.target.result);
-  };
-  // read the image file as a data URL.
-  let img = reader.readAsDataURL(this.files[0]);
-  console.log(img);
-});
+//     console.log(e.target.result);
+//   };
+//   // read the image file as a data URL.
+//   let img = reader.readAsDataURL(this.files[0]);
+//   console.log(img);
+// });
 
 
-async function getCountry(){
-  console.log('getCountry');
-  let response = await fetch('https://restcountries.eu/rest/v2/all');
-  let data = await response.json();
-  //addOption(data,'inputCountry');
-  console.log(data);
-}
+// async function getCountry(){
+//   console.log('getCountry');
+//   let response = await fetch('https://restcountries.eu/rest/v2/all');
+//   let data = await response.json();
+//   //addOption(data,'inputCountry');
+//   console.log(data);
+// }
 
 
 

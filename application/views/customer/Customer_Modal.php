@@ -20,7 +20,7 @@
                             role="tab" aria-controls="nav-Display" aria-selected="false">Profile Display</a>
                     </div>
                 </nav>
-                <form id="formCustomer">
+                <form id="formCustomer" enctype="multipart/form-data">
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="nav-Info" role="tabpanel"
                             aria-labelledby="nav-Info-tab">
@@ -29,7 +29,7 @@
                                 <div class="form-group col-md-6">
                                     <label for="inputFirstName">First Name</label>
                                     <input type="text" class="form-control" id="inputFirstName" name="FirstName"
-                                    required>
+                                        required>
                                     <div class="valid-feedback">Valid.</div>
                                     <div class="invalid-feedback">Please fill out this field.</div>
                                 </div>
@@ -52,9 +52,9 @@
                                     <label for="inputDateOfBirth">Date Of Birth</label>
                                     <div class="input-group date">
                                         <input autocomplete="off" type="text" class="form-control" id="inputDateOfBirth"
-                                            name="DateOfBirth" required>
-                                            <div class="valid-feedback">Valid.</div>
-                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                            name="DateOfBirth" placeholder="mm/dd/yyyy" required>
+                                        <div class="valid-feedback">Valid.</div>
+                                        <div class="invalid-feedback">Please fill out this field.</div>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-3">
@@ -74,13 +74,13 @@
                                 <label for="inputAddress">Address</label>
                                 <input type="text" class="form-control" id="inputAddress" name="Address" required>
                                 <div class="valid-feedback">Valid.</div>
-                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                <div class="invalid-feedback">Please fill out this field.</div>
                             </div>
                             <div class="form-group">
                                 <label for="inputAddress2">Address 2</label>
                                 <input type="text" class="form-control" id="inputAddress2" name="Address2" required>
                                 <div class="valid-feedback">Valid.</div>
-                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                <div class="invalid-feedback">Please fill out this field.</div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-3">
@@ -103,7 +103,8 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="inputPostalCode">PostalCode</label>
-                                    <input type="text" class="form-control" id="inputPostalCode" name="PostalCode" required>
+                                    <input type="text" class="form-control" id="inputPostalCode" name="PostalCode"
+                                        required>
                                     <div class="valid-feedback">Valid.</div>
                                     <div class="invalid-feedback">Please fill out this field.</div>
                                 </div>
@@ -116,13 +117,14 @@
                                     <label for="inputEducationalLevel">Educational Level</label>
                                     <input type="text" class="form-control" id="inputEducationalLevel"
                                         name="EducationalLevel" required>
-                                        <div class="valid-feedback">Valid.</div>
+                                    <div class="valid-feedback">Valid.</div>
                                     <div class="invalid-feedback">Please fill out this field.</div>
                                 </div>
 
                                 <div class="form-group col-md-6">
                                     <label for="inputInstitution">Institution</label>
-                                    <input type="text" class="form-control" id="inputInstitution" name="Institution" required>
+                                    <input type="text" class="form-control" id="inputInstitution" name="Institution"
+                                        required>
                                     <div class="valid-feedback">Valid.</div>
                                     <div class="invalid-feedback">Please fill out this field.</div>
                                 </div>
@@ -138,8 +140,8 @@
                                 <div class="form-group col-md-6 ">
                                     <label for="inputGraduateDate">Graduate Date</label>
                                     <input autocomplete="off" type="text" class="form-control" id="inputGraduateDate"
-                                        name="GraduateDate" required>
-                                        <div class="valid-feedback">Valid.</div>
+                                        name="GraduateDate" placeholder="mm/dd/yyyy" required>
+                                    <div class="valid-feedback">Valid.</div>
                                     <div class="invalid-feedback">Please fill out this field.</div>
                                 </div>
                             </div>
@@ -148,36 +150,28 @@
                             <div class="container">
                                 <div class="form-row justify-content-md-center">
                                     <div class="col">
-                                        <div id="msg"></div>
                                         <label for="file">Profile Display</label>
-                                        <input type="file" name="img[]" class="file" accept="image/*">
-                                        <div class="input-group my-3">
-                                            <input type="text" class="form-control" disabled placeholder="Upload File"
-                                                id="file" required>
-                                                <div class="valid-feedback">Valid.</div>
-                                                 <div class="invalid-feedback">Please fill out this field.</div>
-                                            <div class="input-group-append">
-                                                <button type="button" class="browse btn btn-primary">Browse</button>
-                                            </div>
+                                        <div class="input-group ">
+                                            <input type="file" class="form-control" placeholder="Upload File"
+                                            id="file"  accept="image/*">
                                         </div>
-                                    </div>
-                                    <div class="col">
-                                        <img src="<?php echo base_url('img/person.jpg') ?>" id="preview"
-                                            class="img-thumbnail">
+                                        <div class="col">
+                                            <img src="<?php echo base_url('img/person.jpg') ?>" id="preview"
+                                                class="img-thumbnail">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button id='ActionToCustomer' type="button" class=""></button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id='ActionToCustomer' type="button" class=""></button>
+                    </div>
             </div>
         </div>
     </div>
-</div>
 
-</body>
+    </body>
 
-</html>
+    </html>
