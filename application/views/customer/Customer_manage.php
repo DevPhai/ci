@@ -29,5 +29,5 @@
     </table>
 
 
-
+<button class="btn btn-info" onclick="getCountry()">Test API In Console</button>
 </div>

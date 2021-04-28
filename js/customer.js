@@ -335,12 +335,13 @@ $('input[type="file"]').change(function (e) {
 });
 
 
-// async function getCountry(){
-//   console.log('getCountry');
-//   let response = await fetch('https://api.printful.com/countries');
-//   let data = await response.json();
-//   addOption(data,'inputCountry');
-// }
+async function getCountry(){
+  console.log('getCountry');
+  let response = await fetch('https://api.printful.com/countries');
+  let data = await response.json();
+  //addOption(data,'inputCountry');
+  console.log(data);
+}
 
 
 
