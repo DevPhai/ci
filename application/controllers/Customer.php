@@ -64,56 +64,68 @@ class Customer extends CI_Controller {
 			$data['Institution']=$this->input->post('Institution');
 			$data['Major']=$this->input->post('Major');
 			$data['GraduateDate']=$this->input->post('GraduateDate');
-			//$data['ImgProfile']=$this->input->post('ImgProfile');
+			
 
 			$DateOfBirth = explode('/',$data['DateOfBirth']);
 			$data['DateOfBirth'] = $DateOfBirth[2] . '-' . $DateOfBirth[0] . '-' .  $DateOfBirth[1];
 			$GraduateDate = explode('/',$data['GraduateDate']);
 			$data['GraduateDate'] = $GraduateDate[2] . '-' . $GraduateDate[0] . '-' .  $GraduateDate[1];
 
-			$query = $this->customer_model->insert_customer($data);	
-			if($query){
+			 $results = $this->customer_model->insert_customer($data);	
+			 if($results){
 				echo json_encode(array(
-					"statusCode"=>200
+					"statusCode"=>200,
+					"data"=> $data,
+					'img' => $this->input->post('file')
 				));
-			}
+			 }else{
+				echo json_encode(array(
+					"data"=>$data,
+					'img' => $this->input->post('file')
+				));
+			 }
 		
-    
 	}
 
     public function bindEditCustomer()
 	{
 		$id = $this->input->post('Customer_id');
-		$data['FirstName']=$this->input->post('FirstName');
-		$data['LastName']=$this->input->post('LastName');
-		$data['NickName']=$this->input->post('NickName');
-		$data['DateOfBirth']=$this->input->post('DateOfBirth');
-		$data['PhoneNumber']=$this->input->post('PhoneNumber');
-		$data['Email']=$this->input->post('Email');
-		$data['Address']=$this->input->post('Address');
-		$data['Address2']=$this->input->post('Address2');
-		$data['City']=$this->input->post('City');
-		$data['Province']=$this->input->post('Province');
-		$data['Country']=$this->input->post('Country');
-		$data['PostalCode']=$this->input->post('PostalCode');
-		$data['EducationalLevel']=$this->input->post('EducationalLevel');
-		$data['Institution']=$this->input->post('Institution');
-		$data['Major']=$this->input->post('Major');
-		$data['GraduateDate']=$this->input->post('GraduateDate');
-		//$data['ImgProfile']=$this->input->post('ImgProfile');
+		$data['FirstName']= $this->input->post('FirstName');
+		$data['LastName']= $this->input->post('LastName');
+		$data['NickName']= $this->input->post('NickName');
+		$data['DateOfBirth']= $this->input->post('DateOfBirth');
+		$data['PhoneNumber']= $this->input->post('PhoneNumber');
+		$data['Email']= $this->input->post('Email');
+		$data['Address']= $this->input->post('Address');
+		$data['Address2']= $this->input->post('Address2');
+		$data['City']= $this->input->post('City');
+		$data['Province']= $this->input->post('Province');
+		$data['Country']= $this->input->post('Country');
+		$data['PostalCode']= $this->input->post('PostalCode');
+		$data['EducationalLevel']= $this->input->post('EducationalLevel');
+		$data['Institution']= $this->input->post('Institution');
+		$data['Major']= $this->input->post('Major');
+		$data['GraduateDate']= $this->input->post('GraduateDate');
+	
 
-		$DateOfBirth = explode('/',$data['DateOfBirth']);
-		$data['DateOfBirth'] = $DateOfBirth[2] . '-' . $DateOfBirth[0] . '-' .  $DateOfBirth[1];
-		$GraduateDate = explode('/',$data['GraduateDate']);
-		$data['GraduateDate'] = $GraduateDate[2] . '-' . $GraduateDate[0] . '-' .  $GraduateDate[1];
+		$DateOfBirth =  explode('/',$data['DateOfBirth']);
+		$data['DateOfBirth'] =  $DateOfBirth[2] . '-' . $DateOfBirth[0] . '-' .  $DateOfBirth[1];
+		$GraduateDate =  explode('/',$data['GraduateDate']);
+		$data['GraduateDate'] =  $GraduateDate[2] . '-' . $GraduateDate[0] . '-' .  $GraduateDate[1];
 
-		$query = $this->customer_model->update_customer($data,$id);	
-
-		if($query){
-			echo json_encode(array(
-				"statusCode"=>200
-			));
-		}
+	 	 $results = $this->customer_model->update_customer($data,$id);	
+			 if($results){
+				echo json_encode(array(
+					"statusCode"=>200,
+					"data"=> $data,
+					'img' => $this->input->post('file')
+				));
+			 }else{
+				echo json_encode(array(
+					"data"=> $data,
+					'img' => $this->input->post('file')
+				));
+			 }
 	}
 
 	public function bindDelCustomer($id)

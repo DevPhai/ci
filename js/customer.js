@@ -8,7 +8,7 @@ $('#inputGraduateDate').datepicker({
 });
 
 $(function () {
-   GetListCustomer();
+  GetListCustomer();
   $("#AddCoustomer").on("click", function () {
     $('#ActionToCustomer').show();
     disabledform(false);
@@ -17,7 +17,6 @@ $(function () {
     titleModal.textContent = "Add Customer";
     buttonAction.textContent = "Save";
     buttonAction.className = "btn btn-success";
-    buttonAction.setAttribute("onclick", "BindSave();");
     clearFormdata();
     $('#nav-Info-tab').trigger('click');
   });
@@ -40,7 +39,7 @@ function GetListCustomer() {
           let id = '"' + dataResult[index].Customer_id + '"';
           let Name = '"' + dataResult[index].FirstName + '"';
 
-          html += "<tr class='customerlist' id='"+id+"'>";
+          html += "<tr class='customerlist' id='" + id + "'>";
           html += "<th scope='row'>" + ListNo + "</th>";
           html += "<td>" + dataResult[index].FirstName + "</td>";
           html += "<td>" + dataResult[index].LastName + "</td>";
@@ -70,18 +69,21 @@ function GetListCustomer() {
 }
 
 
-function BindSave() {
-  var formdata = (getformdataByjQuery());
-  console.log('BindSave');
-  console.log(formdata);
-  var form = $("#formCustomer")
-  if (form[0].checkValidity() === true) {
+$('#formCustomer').submit(function (e) {
+  e.preventDefault();
+  var Action = 'bindSaveCustomer';
+  var id = $('#hidCustommerID').val();
+  if(id != null && id != ""){
+    Action = 'bindEditCustomer';
+  }
+ 
     $.ajax({
-      url: base_url + 'index.php/Customer/bindSaveCustomer',
-      data: formdata,
-      method: 'POST',
+      url: base_url + 'index.php/Customer/' + Action,
+      method: 'post',
+      data: new FormData(this),
+      contentType: false,
+      processData: false,
       dataType: "json",
-
       beforeSend: function () {
         $('#ActionToCustomer').prop('disabled', true);
       },
@@ -106,53 +108,10 @@ function BindSave() {
 
       }
     });
-  }
-  else {
-    form.addClass('was-validated');
-  }
-}
+
+});
 
 
-function BindEdit() {
-  var formdata = (getformdataByjQuery());
-  console.log('BindEdit');
-  console.log(formdata);
-  var form = $("#formCustomer")
-  if (form[0].checkValidity() === true) {
-    $.ajax({
-      url: base_url + 'index.php/Customer/bindEditCustomer',
-      data: formdata,
-      method: 'POST',
-      dataType: "json",
-
-      beforeSend: function () {
-        $('#ActionToCustomer').prop('disabled', true);
-      },
-      success: function (dataResult) {
-        console.log('dataResult');
-        console.log(dataResult);
-        if (dataResult.statusCode == 200) {
-          alertdialog(1, 'Update Success ');
-        }
-        else {
-          alertdialog(2, 'Update Error ');
-        }
-
-        $('#ActionToCustomer').prop("disabled", false)
-        $('#CustomerModal').modal('hide');
-
-      },
-      error: function (xhr) {
-        $('#ActionToCustomer').attr('disabled', false);
-        $('#CustomerModal').modal('hide');
-        alertdialog(2, 'Error Not response !! ');
-
-      }
-    });
-  } else {
-    form.addClass('was-validated');
-  }
-}
 
 
 function BindDelete($id, $name) {
@@ -210,29 +169,6 @@ function alertdialog(alertType, TestAlert) {
 }
 
 
-function getformdataByjQuery() {
-  var _data = {
-    FirstName: $('#inputFirstName').val(),
-    LastName: $('#inputLastName').val(),
-    NickName: $('#inputNickName').val(),
-    DateOfBirth: $('#inputDateOfBirth').val(),
-    PhoneNumber: $('#inputPhone').val(),
-    Email: $('#inputEmail').val(),
-    Address: $('#inputAddress').val(),
-    Address2: $('#inputAddress2').val(),
-    City: $('#inputCity').val(),
-    Province: $('#inputProvince').val(),
-    Country: $('#inputCountry').val(),
-    PostalCode: $('#inputPostalCode').val(),
-    EducationalLevel: $('#inputEducationalLevel').val(),
-    Institution: $('#inputInstitution').val(),
-    Major: $('#inputMajor').val(),
-    GraduateDate: $('#inputGraduateDate').val(),
-    ImgProfile: $('#file').val(),
-    Customer_id: $('#hidCustommerID').val()
-  }
-  return _data;
-}
 
 
 function goEdit($id) {
@@ -243,7 +179,7 @@ function goEdit($id) {
   titleModal.textContent = "Edit Customer";
   buttonAction.textContent = "Update";
   buttonAction.className = "btn btn-warning";
-  buttonAction.setAttribute("onclick", "BindEdit();");
+  //buttonAction.setAttribute("onclick", "BindEdit();");
   GetCustomerById($id);
   $('#CustomerModal').modal('show');
   $('#nav-Info-tab').trigger('click')
@@ -295,6 +231,7 @@ function GetCustomerById($id) {
         $('#inputMajor').val(dataResult.data[0].Major);
         $('#inputGraduateDate').val(strGraduateDate);
         $('#file').val('');
+        $('#preview').attr('src',base_url + 'img/' + dataResult.data[0].ImgProfile)
         $('#hidCustommerID').val(dataResult.data[0].Customer_id);
       }
     },
@@ -312,48 +249,38 @@ function clearFormdata() {
   });
   $("#preview").attr('src', base_url + 'img/person.jpg');
   $("#file").val('');
+  $('#hidCustommerID').val('');
   $("#formCustomer").removeClass('was-validated');
 }
 
-function disabledform(disabled){
+function disabledform(disabled) {
   var $form = $('#formCustomer');
   $form.find('input[type=text],input[type=Phone],input[type=Email]').each(function () {
-   
-    if(disabled){
+
+    if (disabled) {
       $(this).prop("disabled", true);
-    }else{
+    } else {
       $(this).prop("disabled", false);
     }
   });
-  if(disabled){
+  if (disabled) {
     $('#file').hide();
-  }else{
+  } else {
     $('#file').show();
   }
-  
+
 }
 
+$('input[type="file"]').change(function(e) {
+  var reader = new FileReader();
+  reader.onload = function(e) {
+
+      document.getElementById("preview").src = e.target.result;
+  };
+  reader.readAsDataURL(this.files[0]);
+});
 
 
-// $(document).on("click", ".browse", function () {
-//   var file = $(this).parents().find(".file");
-//   file.trigger("click");
-// });
-// $('input[type="file"]').change(function (e) {
-//   var fileName = e.target.files[0].name;
-//   $("#file").val(fileName);
-
-//   var reader = new FileReader();
-//   reader.onload = function (e) {
-//     // get loaded data and render thumbnail.
-//     document.getElementById("preview").src = e.target.result;
-
-//     console.log(e.target.result);
-//   };
-//   // read the image file as a data URL.
-//   let img = reader.readAsDataURL(this.files[0]);
-//   console.log(img);
-// });
 
 
 // async function getCountry(){
@@ -366,77 +293,3 @@ function disabledform(disabled){
 
 
 
-// function addOption(data, id){
-//   console.log(addOption);
-//   data.forEach((data) => {
-//     const Selector = document.getElementById(id)
-//     const Option = document.createElement('Option')
-//     Option.textContent = data.name
-//     Selector.appendChild(Option)
-//     console.log('appendChild');
-//   })
-// }
-
-// var request = new XMLHttpRequest()
-// request.open('GET', 'https://restcountries.eu/rest/v2/all', true)
-// request.onload = function () {
-//   // Begin accessing JSON data here
-//   var data = JSON.parse(this.response)
-//   if (request.status >= 200 && request.status < 400) {
-//     data.forEach((Country) => {
-//       const SelectorCountry = document.getElementById('inputCountry')
-//       const Option = document.createElement('Option')
-//       Option.textContent = Country.name
-//       SelectorCountry.appendChild(Option)
-//     })
-//   } else {
-//     console.log('AIP restcountries Error');
-//   }
-
-// }
-// request.send();
-
-
-
-
-
-// function GetFormValues() {
-//   var $formInfo = $('#Infomation');
-//   var $formEducation= $('#Educational');
-//   var $Display = $('#image-form');
-//   var elements = new Array();
-//   $formInfo.find('input[type=text],input[type=Phone],input[type=Email]').each(function () {
-//       if ($(this).attr('disabled') != 'disabled' && $(this).attr('disabled') != true) {
-//           var name = $(this).attr('name');
-//           if (name != null && name != undefined) {
-//               elements.push({
-//                   name: $(this).attr('name'),
-//                   value: $(this).val()
-//               });
-//           }
-//       }
-//   });
-//   $formEducation.find('input[type=text]').each(function () {
-//     if ($(this).attr('disabled') != 'disabled' && $(this).attr('disabled') != true) {
-//         var name = $(this).attr('name');
-//         if (name != null && name != undefined) {
-//             elements.push({
-//                 name: $(this).attr('name'),
-//                 value: $(this).val()
-//             });
-//         }
-//     }
-// });
-// $Display.find('input[type=text]').each(function () {
-//   if ($(this).attr('disabled') != 'disabled' && $(this).attr('disabled') != true) {
-//       var name = $(this).attr('name');
-//       if (name != null && name != undefined) {
-//           elements.push({
-//               name: $(this).attr('name'),
-//               value: $(this).val()
-//           });
-//       }
-//   }
-// });
-//   return elements;
-// }

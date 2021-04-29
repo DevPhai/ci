@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2021 at 07:38 PM
+-- Generation Time: Apr 29, 2021 at 09:20 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -49,8 +49,7 @@ INSERT INTO `infomation` (`id`, `FirstName`, `LastName`, `NickName`, `DateOfBirt
 (6, 'กิตติธร', 'ปะละศรี', 'แผน', '0000-00-00', '0876615414'),
 (7, 'นัม', 'โดซาน', 'โดซาน', '0000-00-00', '0876615414'),
 (8, 'สุนันทา', 'พันธ์เดช', 'แนน', '1993-08-27', '0876614458'),
-(9, 'Eveline', 'Rau', 'Dell', '0000-00-00', '04161234587'),
-(10, 'Destany Windler', 'Zemlak', 'Reyes Dibbert', '1990-10-10', '462-874-4964');
+(9, 'Eveline', 'Rau', 'Dell', '0000-00-00', '04161234587');
 
 -- --------------------------------------------------------
 
@@ -74,34 +73,33 @@ CREATE TABLE `items` (
 
 CREATE TABLE `tbl_customerinfo` (
   `Customer_id` varchar(50) NOT NULL,
-  `FirstName` varchar(255) NOT NULL,
-  `LastName` varchar(255) NOT NULL,
-  `NickName` varchar(100) NOT NULL,
-  `PhoneNumber` varchar(50) NOT NULL,
-  `Email` varchar(100) NOT NULL,
-  `Address` varchar(255) NOT NULL,
-  `Address2` varchar(255) NOT NULL,
-  `City` varchar(100) NOT NULL,
-  `Province` varchar(100) NOT NULL,
-  `Country` varchar(100) NOT NULL,
-  `PostalCode` int(32) NOT NULL,
-  `DateOfBirth` date NOT NULL,
-  `EducationalLevel` varchar(100) NOT NULL,
-  `Institution` varchar(255) NOT NULL,
-  `Major` varchar(255) NOT NULL,
-  `GraduateDate` date NOT NULL,
-  `ImgProfile` varchar(255) NOT NULL,
-  `ImgName` varchar(100) NOT NULL,
-  `ImgType` char(10) NOT NULL
+  `FirstName` varchar(255) DEFAULT NULL,
+  `LastName` varchar(255) DEFAULT NULL,
+  `NickName` varchar(100) DEFAULT NULL,
+  `PhoneNumber` varchar(50) DEFAULT NULL,
+  `Email` varchar(100) DEFAULT NULL,
+  `Address` varchar(255) DEFAULT NULL,
+  `Address2` varchar(255) DEFAULT NULL,
+  `City` varchar(100) DEFAULT NULL,
+  `Province` varchar(100) DEFAULT NULL,
+  `Country` varchar(100) DEFAULT NULL,
+  `PostalCode` int(32) DEFAULT NULL,
+  `DateOfBirth` date DEFAULT NULL,
+  `EducationalLevel` varchar(100) DEFAULT NULL,
+  `Institution` varchar(255) DEFAULT NULL,
+  `Major` varchar(255) DEFAULT NULL,
+  `GraduateDate` date DEFAULT NULL,
+  `ImgProfile` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tbl_customerinfo`
 --
 
-INSERT INTO `tbl_customerinfo` (`Customer_id`, `FirstName`, `LastName`, `NickName`, `PhoneNumber`, `Email`, `Address`, `Address2`, `City`, `Province`, `Country`, `PostalCode`, `DateOfBirth`, `EducationalLevel`, `Institution`, `Major`, `GraduateDate`, `ImgProfile`, `ImgName`, `ImgType`) VALUES
-('608843d72733a', 'Columbus Torphy', 'Lowe', 'Monte Trantow', '958-911-1874', 'your.email+faker91638@gmail.com', '50279 Felix Forges', '', 'West Noelside', 'Ohio', 'Cayman Islands', 507, '0000-00-00', 'Corporate Quality Facilitator', 'Chief Data Coordinator', 'Central Creative Consultant', '0000-00-00', 'images.jpg', '', ''),
-('608845b21c1c6', 'Isidro Bechtelar', 'Powlowski', 'Adriel Greenholt', '876-704-2600', 'your.email+faker60303@gmail.com', '92745 Becker Underpass', 'Leannon - Schaden', 'Carlieberg', 'Delaware', 'Bangladesh', 502, '0000-00-00', 'District Configuration Supervisor', 'Fahey Group', 'Direct Markets Strategist', '2021-09-04', 'ZT6F8B3T.jpg', '', '');
+INSERT INTO `tbl_customerinfo` (`Customer_id`, `FirstName`, `LastName`, `NickName`, `PhoneNumber`, `Email`, `Address`, `Address2`, `City`, `Province`, `Country`, `PostalCode`, `DateOfBirth`, `EducationalLevel`, `Institution`, `Major`, `GraduateDate`, `ImgProfile`) VALUES
+('608a4345dca92', 'ฐาปนา', 'ปะละศรี', 'ไผ่', '0855287439', 'thapana10@gmail.com', 'ุ6 ม.4 ต.เวียงยอง', 'vip', 'เมือง', 'ลำพูน', 'ไทย', 51000, '1990-10-10', 'ป ตรี', 'ราชมงคลล้านนา', 'วิศวะคอมพิวเตอร์', '2021-05-06', 'featuresOCR.png'),
+('608a48b7653ef', 'สุนันทา', 'พันธ์เดช', 'Blaze', '0855287439', 'thapana10@gmail.com', '132/272 ม. 8 ต.สาริกา อ.เมืองนครนายก', 'vip', 'เมืองนครนายก', 'นครนายก', 'ไทย', 26000, '2021-04-28', 'National Directives Facilitator', 'Chief Data Coordinator', 'Central Creative Consultant', '2021-04-21', 'Logo-myCRM-300x130.png'),
+('608a586a8cfab', 'สุนันทา777', 'พันธ์เดช', 'Ashlee', '0855287439', 'thapana10@gmail.com', '132/272 ม. 8 ต.สาริกา อ.เมืองนครนายก', 'vip', 'เมืองนครนายก', 'นครนายก', 'ไทย', 26000, '2021-05-06', 'National Directives Facilitator', 'Slovenia', 'Direct Markets Strategist', '2021-05-05', 'messageImage_1577950983036.jpg');
 
 --
 -- Indexes for dumped tables
@@ -133,7 +131,7 @@ ALTER TABLE `tbl_customerinfo`
 -- AUTO_INCREMENT for table `infomation`
 --
 ALTER TABLE `infomation`
-  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `items`

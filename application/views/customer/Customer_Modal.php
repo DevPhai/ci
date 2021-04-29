@@ -20,11 +20,11 @@
                             role="tab" aria-controls="nav-Display" aria-selected="false">Profile Display</a>
                     </div>
                 </nav>
-                <form id="formCustomer" enctype="multipart/form-data">
+                <form id="formCustomer" class="need-validated" method="post" enctype="multipart/form-data">
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="nav-Info" role="tabpanel"
                             aria-labelledby="nav-Info-tab">
-                            <input type="hidden" id="hidCustommerID">
+                            <input type="hidden" id="hidCustommerID" name="Customer_id">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="inputFirstName">First Name</label>
@@ -59,7 +59,7 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="inputPhone">Phone Number</label>
-                                    <input type="Phone" class="form-control" id="inputPhone" name="Phone" required>
+                                    <input type="Phone" class="form-control" id="inputPhone" name="PhoneNumber" required>
                                     <div class="valid-feedback">Valid.</div>
                                     <div class="invalid-feedback">Please fill out this field.</div>
                                 </div>
@@ -153,7 +153,9 @@
                                         <label for="file">Profile Display</label>
                                         <div class="input-group ">
                                             <input type="file" class="form-control" placeholder="Upload File"
-                                            name="file" id="file"  accept="image/*">
+                                            name="file" id="file" required accept="image/*">
+                                            <div class="valid-feedback">Valid.</div>
+                                            <div class="invalid-feedback">Please fill out this field.</div>
                                         </div>
                                         <div class="col">
                                             <img src="<?php echo base_url('img/person.jpg') ?>" id="preview"
@@ -166,7 +168,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button id='ActionToCustomer' type="button" class=""></button>
+                        <button type="submit" id='ActionToCustomer' type="button" class=""></button>
                     </div>
                 </form>
             </div>
