@@ -153,7 +153,7 @@
                                         <label for="file">Profile Display</label>
                                         <div class="input-group ">
                                             <input type="file" class="form-control" placeholder="Upload File"
-                                            id="file"  accept="image/*">
+                                            name="file" id="file"  accept="image/*">
                                         </div>
                                         <div class="col">
                                             <img src="<?php echo base_url('img/person.jpg') ?>" id="preview"
@@ -168,6 +168,7 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button id='ActionToCustomer' type="button" class=""></button>
                     </div>
+                </form>
             </div>
         </div>
     </div>

@@ -72,6 +72,7 @@ function GetListCustomer() {
 
 function BindSave() {
   var formdata = (getformdataByjQuery());
+  console.log('BindSave');
   console.log(formdata);
   var form = $("#formCustomer")
   if (form[0].checkValidity() === true) {
@@ -85,7 +86,8 @@ function BindSave() {
         $('#ActionToCustomer').prop('disabled', true);
       },
       success: function (dataResult) {
-
+        console.log('dataResult');
+        console.log(dataResult);
         if (dataResult.statusCode == 200) {
           alertdialog(1, 'Save Success ');
         }
@@ -113,6 +115,7 @@ function BindSave() {
 
 function BindEdit() {
   var formdata = (getformdataByjQuery());
+  console.log('BindEdit');
   console.log(formdata);
   var form = $("#formCustomer")
   if (form[0].checkValidity() === true) {
@@ -126,7 +129,8 @@ function BindEdit() {
         $('#ActionToCustomer').prop('disabled', true);
       },
       success: function (dataResult) {
-
+        console.log('dataResult');
+        console.log(dataResult);
         if (dataResult.statusCode == 200) {
           alertdialog(1, 'Update Success ');
         }
@@ -224,7 +228,7 @@ function getformdataByjQuery() {
     Institution: $('#inputInstitution').val(),
     Major: $('#inputMajor').val(),
     GraduateDate: $('#inputGraduateDate').val(),
-    ImgProfile: $('#file').text(),
+    ImgProfile: $('#file').val(),
     Customer_id: $('#hidCustommerID').val()
   }
   return _data;
@@ -290,7 +294,7 @@ function GetCustomerById($id) {
         $('#inputInstitution').val(dataResult.data[0].Institution);
         $('#inputMajor').val(dataResult.data[0].Major);
         $('#inputGraduateDate').val(strGraduateDate);
-        $('#file').text(dataResult.data[0].ImgProfile);
+        $('#file').val('');
         $('#hidCustommerID').val(dataResult.data[0].Customer_id);
       }
     },
@@ -307,7 +311,6 @@ function clearFormdata() {
     $(this).val('');
   });
   $("#preview").attr('src', base_url + 'img/person.jpg');
-  $("#file").text('');
   $("#file").val('');
   $("#formCustomer").removeClass('was-validated');
 }

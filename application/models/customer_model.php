@@ -33,9 +33,14 @@ class Customer_model extends CI_Model {
         $config['max_hight'] = '3000';
 
         $this->load->library('upload', $config);
+        $this->upload->initialize($config);
 
         if ( ! $this->upload->do_upload('ImgProfile')){
-            echo $this->upload->display_errors();  
+            // echo $this->upload->display_errors();  
+            $error = array('error' => $this->upload->display_errors('<p>', '</p>'));
+
+           // $this->load->view('Customer_manage', $error);
+           return false; 
         }
         else{
 
@@ -51,16 +56,18 @@ class Customer_model extends CI_Model {
 
     public function update_customer($data,$id)
     {
-        $config['upload_path'] = './uploads/';
+        $config['upload_path'] = './img/';
         $config['allowed_types'] = 'gif|jpg|png';
         $config['max_size'] = '2000';
         $config['max_width'] = '3000';
         $config['max_hight'] = '3000';
 
         $this->load->library('upload', $config);
+        $this->upload->initialize($config);
 
         if ( ! $this->upload->do_upload('ImgProfile')){
-            echo $this->upload->display_errors();  
+            $error = array('error' => $this->upload->display_errors('<p>', '</p>'));
+            return false; 
         }
         else{
 

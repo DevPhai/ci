@@ -71,10 +71,12 @@ class Customer extends CI_Controller {
 			$GraduateDate = explode('/',$data['GraduateDate']);
 			$data['GraduateDate'] = $GraduateDate[2] . '-' . $GraduateDate[0] . '-' .  $GraduateDate[1];
 
-			$this->customer_model->insert_customer($data);	
-			echo json_encode(array(
-				"statusCode"=>200
-			));
+			$query = $this->customer_model->insert_customer($data);	
+			if($query){
+				echo json_encode(array(
+					"statusCode"=>200
+				));
+			}
 		
     
 	}
@@ -105,10 +107,13 @@ class Customer extends CI_Controller {
 		$GraduateDate = explode('/',$data['GraduateDate']);
 		$data['GraduateDate'] = $GraduateDate[2] . '-' . $GraduateDate[0] . '-' .  $GraduateDate[1];
 
-		$this->customer_model->update_customer($data,$id);	
-		echo json_encode(array(
-			"statusCode"=>200
-		));
+		$query = $this->customer_model->update_customer($data,$id);	
+
+		if($query){
+			echo json_encode(array(
+				"statusCode"=>200
+			));
+		}
 	}
 
 	public function bindDelCustomer($id)

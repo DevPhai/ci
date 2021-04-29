@@ -43,9 +43,9 @@ function updateData() {
         },
         body: JSON.stringify({
             "id": 3,
-            "first_name": "Anna2",
-            "last_name": "Smith2",
-            "email": "annasmith2322@gmail.com"
+            "first_name": "Anna",
+            "last_name": "Smith",
+            "email": "Edit@gmail.com"
         })
     })
         .then(response => console.log(response))
