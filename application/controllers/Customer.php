@@ -66,11 +66,6 @@ class Customer extends CI_Controller {
 			$data['GraduateDate']=$this->input->post('GraduateDate');
 			
 
-			$DateOfBirth = explode('/',$data['DateOfBirth']);
-			$data['DateOfBirth'] = $DateOfBirth[2] . '-' . $DateOfBirth[0] . '-' .  $DateOfBirth[1];
-			$GraduateDate = explode('/',$data['GraduateDate']);
-			$data['GraduateDate'] = $GraduateDate[2] . '-' . $GraduateDate[0] . '-' .  $GraduateDate[1];
-
 			 $results = $this->customer_model->insert_customer($data);	
 			 if($results){
 				echo json_encode(array(
@@ -107,11 +102,6 @@ class Customer extends CI_Controller {
 		$data['Major']= $this->input->post('Major');
 		$data['GraduateDate']= $this->input->post('GraduateDate');
 	
-
-		$DateOfBirth =  explode('/',$data['DateOfBirth']);
-		$data['DateOfBirth'] =  $DateOfBirth[2] . '-' . $DateOfBirth[0] . '-' .  $DateOfBirth[1];
-		$GraduateDate =  explode('/',$data['GraduateDate']);
-		$data['GraduateDate'] =  $GraduateDate[2] . '-' . $GraduateDate[0] . '-' .  $GraduateDate[1];
 
 	 	 $results = $this->customer_model->update_customer($data,$id);	
 			 if($results){

@@ -1,11 +1,4 @@
-$('#inputDateOfBirth').datepicker({
-  autoclose: true,
-  format: 'mm/dd/yyyy'
-});
-$('#inputGraduateDate').datepicker({
-  autoclose: true,
-  format: 'mm/dd/yyyy'
-});
+
 
 $(function () {
   GetListCustomer();
@@ -34,8 +27,7 @@ function GetListCustomer() {
         let html = "";
         for (let index = 0; index < dataResult.length; index++) {
           let ListNo = index + 1;
-          var DateOfBirth = dataResult[index].DateOfBirth.split("-");
-          var strDateOfBirth = DateOfBirth[1] + '/' + DateOfBirth[2] + '/' + DateOfBirth[0];
+
           let id = '"' + dataResult[index].Customer_id + '"';
           let Name = '"' + dataResult[index].FirstName + '"';
 
@@ -44,7 +36,7 @@ function GetListCustomer() {
           html += "<td>" + dataResult[index].FirstName + "</td>";
           html += "<td>" + dataResult[index].LastName + "</td>";
           html += "<td>" + dataResult[index].NickName + "</td>";
-          html += "<td>" + strDateOfBirth + "</td>";
+          html += "<td>" + dataResult[index].DateOfBirth + "</td>";
           html += "<td>" + dataResult[index].PhoneNumber + "</td>";
           html += "<th>";
           html += "<i class='fas fa-edit text-primary mr-3'  onclick='goEdit(" + id + ")'></i>";
@@ -179,7 +171,6 @@ function goEdit($id) {
   titleModal.textContent = "Edit Customer";
   buttonAction.textContent = "Update";
   buttonAction.className = "btn btn-warning";
-  //buttonAction.setAttribute("onclick", "BindEdit();");
   GetCustomerById($id);
   $('#CustomerModal').modal('show');
   $('#nav-Info-tab').trigger('click')
@@ -209,15 +200,11 @@ function GetCustomerById($id) {
       console.log(dataResult);
       if (dataResult != null && dataResult != undefined) {
 
-        var DateOfBirth = dataResult.data[0].DateOfBirth.split("-");
-        var GraduateDate = dataResult.data[0].GraduateDate.split("-");
-        var strDateOfBirth = DateOfBirth[1] + '/' + DateOfBirth[2] + '/' + DateOfBirth[0];
-        var strGraduateDate = GraduateDate[1] + '/' + GraduateDate[2] + '/' + GraduateDate[0];
 
         $('#inputFirstName').val(dataResult.data[0].FirstName);
         $('#inputLastName').val(dataResult.data[0].LastName);
         $('#inputNickName').val(dataResult.data[0].NickName);
-        $('#inputDateOfBirth').val(strDateOfBirth);
+        $('#inputDateOfBirth').val(dataResult.data[0].DateOfBirth);
         $('#inputPhone').val(dataResult.data[0].PhoneNumber);
         $('#inputEmail').val(dataResult.data[0].Email);
         $('#inputAddress').val(dataResult.data[0].Address);
@@ -229,7 +216,7 @@ function GetCustomerById($id) {
         $('#inputEducationalLevel').val(dataResult.data[0].EducationalLevel);
         $('#inputInstitution').val(dataResult.data[0].Institution);
         $('#inputMajor').val(dataResult.data[0].Major);
-        $('#inputGraduateDate').val(strGraduateDate);
+        $('#inputGraduateDate').val(dataResult.data[0].GraduateDate);
         $('#file').val('');
         $('#preview').attr('src',base_url + 'img/' + dataResult.data[0].ImgProfile)
         $('#hidCustommerID').val(dataResult.data[0].Customer_id);
@@ -244,7 +231,7 @@ function GetCustomerById($id) {
 
 function clearFormdata() {
   var $form = $('#formCustomer');
-  $form.find('input[type=text],input[type=Phone],input[type=Email]').each(function () {
+  $form.find('input[type=text],input[type=Phone],input[type=Email],input[type=date]').each(function () {
     $(this).val('');
   });
   $("#preview").attr('src', base_url + 'img/person.jpg');
@@ -255,7 +242,7 @@ function clearFormdata() {
 
 function disabledform(disabled) {
   var $form = $('#formCustomer');
-  $form.find('input[type=text],input[type=Phone],input[type=Email]').each(function () {
+  $form.find('input[type=text],input[type=Phone],input[type=Email],input[type=date]').each(function () {
 
     if (disabled) {
       $(this).prop("disabled", true);

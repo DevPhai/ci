@@ -51,7 +51,7 @@
                                 <div class="form-group col-md-3">
                                     <label for="inputDateOfBirth">Date Of Birth</label>
                                     <div class="input-group date">
-                                        <input autocomplete="off" type="text" class="form-control" id="inputDateOfBirth"
+                                        <input autocomplete="off" type="date" class="form-control" id="inputDateOfBirth"
                                             name="DateOfBirth" placeholder="mm/dd/yyyy" required>
                                         <div class="valid-feedback">Valid.</div>
                                         <div class="invalid-feedback">Please fill out this field.</div>
@@ -139,7 +139,7 @@
 
                                 <div class="form-group col-md-6 ">
                                     <label for="inputGraduateDate">Graduate Date</label>
-                                    <input autocomplete="off" type="text" class="form-control" id="inputGraduateDate"
+                                    <input autocomplete="off" type="date" class="form-control" id="inputGraduateDate"
                                         name="GraduateDate" placeholder="mm/dd/yyyy" required>
                                     <div class="valid-feedback">Valid.</div>
                                     <div class="invalid-feedback">Please fill out this field.</div>
