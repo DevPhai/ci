@@ -28,18 +28,17 @@ class Customer_model extends CI_Model {
         $this->load->library('upload', $config);
      
 
-        if ( !  $this->upload->do_upload('file'))
+        if ($this->upload->do_upload('file'))
         {
-             echo $this->upload->display_errors();
-             return false;
-        }
-        else
-        {
+             
             $UploadData = $this->upload->data();
             $filename = $UploadData['file_name'];
             $data['ImgProfile'] = $filename;
-            return $this->db->insert('tbl_customerinfo',$data);
         }
+       
+           
+         return $this->db->insert('tbl_customerinfo',$data);
+        
 
     }
 
@@ -53,21 +52,16 @@ class Customer_model extends CI_Model {
 
         $this->load->library('upload', $config);
 
-        if ( !  $this->upload->do_upload('file'))
-        {
-                echo $this->upload->display_errors(); 
-                
-                return false;
-        }
-        else
+        if ($this->upload->do_upload('file'))
         {
             $UploadData = $this->upload->data();
             $filename = $UploadData['file_name'];
             $data['ImgProfile'] = $filename;
-           
-            $this ->db->where('Customer_id', $id);
-            return  $this->db->update('tbl_customerinfo',$data);
         }
+       
+         $this ->db->where('Customer_id', $id);
+         return  $this->db->update('tbl_customerinfo',$data);
+        
 
     }
 

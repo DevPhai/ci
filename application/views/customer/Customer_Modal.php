@@ -153,9 +153,7 @@
                                         <label for="file">Profile Display</label>
                                         <div class="input-group ">
                                             <input type="file" class="form-control" placeholder="Upload File"
-                                            name="file" id="file" required accept="image/*">
-                                            <div class="valid-feedback">Valid.</div>
-                                            <div class="invalid-feedback">Please fill out this field.</div>
+                                            name="file" id="file" accept="image/*">
                                         </div>
                                         <div class="col">
                                             <img src="<?php echo base_url('img/person.jpg') ?>" id="preview"

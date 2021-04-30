@@ -200,7 +200,10 @@ function GetCustomerById($id) {
       console.log(dataResult);
       if (dataResult != null && dataResult != undefined) {
 
-
+        var img = 'person.jpg';
+        if(dataResult.data[0].ImgProfile != null){
+          img = dataResult.data[0].ImgProfile;
+        }
         $('#inputFirstName').val(dataResult.data[0].FirstName);
         $('#inputLastName').val(dataResult.data[0].LastName);
         $('#inputNickName').val(dataResult.data[0].NickName);
@@ -218,7 +221,7 @@ function GetCustomerById($id) {
         $('#inputMajor').val(dataResult.data[0].Major);
         $('#inputGraduateDate').val(dataResult.data[0].GraduateDate);
         $('#file').val('');
-        $('#preview').attr('src',base_url + 'img/' + dataResult.data[0].ImgProfile)
+        $('#preview').attr('src',base_url + 'img/' + img)
         $('#hidCustommerID').val(dataResult.data[0].Customer_id);
       }
     },

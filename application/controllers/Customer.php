@@ -65,6 +65,7 @@ class Customer extends CI_Controller {
 			$data['Major']=$this->input->post('Major');
 			$data['GraduateDate']=$this->input->post('GraduateDate');
 			
+			
 
 			 $results = $this->customer_model->insert_customer($data);	
 			 if($results){
